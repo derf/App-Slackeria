@@ -7,123 +7,19 @@ use warnings;
 use autodie;
 use 5.010;
 
+use App::Pstatus::Check::Cgit;
+use App::Pstatus::Check::Freshmeat;
+use App::Pstatus::Check::Ikiwiki;
+use App::Pstatus::List::Cgit;
+use App::Pstatus::Out::XHTML;
 use Config::Tiny;
 use File::BaseDir qw(config_files);
-use File::Slurp;
-use List::Util qw(first);
-use Sort::Versions;
-use WWW::Freshmeat;
-
-my $project = {};
 
 my $conf = load_config();
-
-my $fm = WWW::Freshmeat->new(
-	token => $conf->{freshmeat}->{token},
-);
 
 sub load_config {
 	my $conffile = config_files('pstatus/config');
 	return Config::Tiny->read($conffile);
-}
-
-sub parse_cgitrc {
-	open(my $fh, '<', '/etc/cgitrc');
-	while (my $line = <$fh>) {
-		if ($line =~ qr{ ^ repo\.url = (?<name> .+) $ }x) {
-			$project->{$+{name}} = {};
-		}
-		elsif ($line =~ qr{ ^ section= }x) {
-			last;
-		}
-	}
-	close($fh);
-}
-
-sub check_git {
-	my ($p) = @_;
-	my %res = (
-		ok => 1,
-		data => q{},
-		href => "http://derf.homelinux.org/git/${p}/",
-	);
-	my $git_dir = "/home/derf/var/git_root/${p}";
-
-	my @tags = split(/\n/, qx{git --git-dir=${git_dir} tag});
-	if (@tags) {
-		$res{data} = 'v' . (sort { versioncmp($a, $b) } @tags)[-1];
-	}
-
-	open(my $fh, '<', "/home/derf/var/git_root/${p}/config");
-	if (not first { $_ eq "\tsharedRepository = world\n" } read_file($fh)) {
-		$res{ok} = 0;
-		$res{data} = 'Repo not shared';
-	}
-	close($fh);
-
-	if (not -e "/home/derf/var/git_root/${p}/git-daemon-export-ok") {
-		$res{ok} = 0;
-		$res{data} = 'git-daemon-export-ok missing';
-	}
-
-	$project->{$p}->{git} = \%res;
-}
-
-sub check_website {
-	my ($p) = @_;
-	my %res = (
-		ok => 1,
-		data => q{},
-		href => "http://derf.homelinux.org/projects/${p}/",
-	);
-	my $pfile = "/home/derf/web/org.homelinux.derf/in/projects/${p}.mdwn";
-	my $re_title = qr{
-		^ \[ \[ \! meta\s title = "
-		$p (?: \s v (?<version> [0-9.-]+ ))?
-		" ]] $
-	}x;
-
-	if (not -e $pfile) {
-		$res{ok} = 0;
-		$res{data} = 'Project file missing';
-	}
-	else {
-		open(my $fh, '<', $pfile);
-		my $ok = 0;
-		while (my $line = <$fh>) {
-			if ($line =~ $re_title) {
-				$res{data} = $+{version} ? "v$+{version}" : q{};
-				$ok = 1;
-			}
-		}
-		if (not $ok) {
-			$res{ok} = 0;
-			$res{data} = 'Wrong name in title or no title';
-		}
-	}
-
-	$project->{$p}->{web} = \%res;
-}
-
-sub check_freshmeat {
-	my ($p) = @_;
-	my %res = (
-		ok => 1,
-		data => q{},
-		href => "http://freshmeat.net/projects/${p}/",
-	);
-	my $fp = $fm->retrieve_project($p);
-
-	if (not defined $fp) {
-		$res{ok} = 0;
-		$res{data} = 'not found';
-	}
-	else {
-		$res{data} = 'v' . $fp->version();
-		$res{description} = $fp->description();
-	}
-
-	$project->{$p}->{freshmeat} = \%res;
 }
 
 # check_cpan
@@ -136,91 +32,16 @@ sub check_freshmeat {
 
 # check_arch
 
-sub show_check {
-	my ($res) = @_;
-
-	if ($res->{ok} and $res->{data} eq q{}) {
-		$res->{data} = 'ok';
-	}
-
-	if ($res->{ok} and $res->{href}) {
-		$res->{data} = sprintf(
-			'<a href="%s">%s</a>',
-			$res->{href},
-			$res->{data},
-		);
-	}
-
-	printf(
-		'<td class="%s">%s</td>',
-		($res->{ok} ? "ok" : "fail"),
-		$res->{data},
-	);
-}
-
-parse_cgitrc();
+my $project = App::Pstatus::List::Cgit->get();
 
 for my $p (keys %{$project}) {
-	check_git($p);
-	check_website($p);
-	check_freshmeat($p);
+	$project->{$p}->{git} = App::Pstatus::Check::Cgit->run($p);
+	$project->{$p}->{web} = App::Pstatus::Check::Ikiwiki->run($p);
+	$project->{$p}->{freshmeat} = App::Pstatus::Check::Freshmeat->run($p,
+		$conf->{freshmeat}->{token});
 }
 
-print(<<'EOF');
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-	<title>derf software QA</title>
-	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-	<style type="text/css">
-		html {
-			font-family: Sans-Serif;
-			text-align: center;
-		}
-
-		a {
-			text-decoration: none;
-			color: #000099;
-		}
-
-		table, th, td {
-			border: solid black 1px;
-		}
-
-		table {
-			border-collapse: collapse;
-		}
-
-		td.ok {
-			background-color: #ccffcc;
-		}
-
-		td.fail {
-			background-color: #ffcccc;
-		}
-	</style>
-</head>
-<body>
-<div>
-<table>
-<tr><th>name</th><th>git</th><th>web</th><th>freshmeat</th></tr>
-EOF
-
-for my $p (sort keys %{$project}) {
-	say("<tr><td>${p}</td>");
-	for my $check (qw(git web freshmeat)) {
-		show_check($project->{$p}->{$check});
-	}
-	say ('</tr>');
-}
-
-print(<<'EOF');
-</table>
-</div>
-</body>
-</html>
-EOF
+App::Pstatus::Out::XHTML->write($project);
 
 __END__
 
