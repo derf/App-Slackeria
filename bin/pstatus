@@ -7,9 +7,9 @@ use warnings;
 use autodie;
 use 5.010;
 
-use App::Pstatus::Check::Cgit;
-use App::Pstatus::Check::Freshmeat;
-use App::Pstatus::Check::Ikiwiki;
+use App::Pstatus::Status::Cgit;
+use App::Pstatus::Status::Freshmeat;
+use App::Pstatus::Status::Ikiwiki;
 use App::Pstatus::List::Cgit;
 use App::Pstatus::Out::XHTML;
 use Config::Tiny;
@@ -35,9 +35,9 @@ sub load_config {
 my $project = App::Pstatus::List::Cgit->get();
 
 for my $p (keys %{$project}) {
-	$project->{$p}->{git} = App::Pstatus::Check::Cgit->run($p);
-	$project->{$p}->{web} = App::Pstatus::Check::Ikiwiki->run($p);
-	$project->{$p}->{freshmeat} = App::Pstatus::Check::Freshmeat->run($p,
+	$project->{$p}->{git} = App::Pstatus::Status::Cgit->check($p);
+	$project->{$p}->{web} = App::Pstatus::Status::Ikiwiki->check($p);
+	$project->{$p}->{freshmeat} = App::Pstatus::Status::Freshmeat->check($p,
 		$conf->{freshmeat}->{token});
 }
 

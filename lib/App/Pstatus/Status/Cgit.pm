@@ -1,4 +1,4 @@
-package App::Pstatus::Check::Cgit;
+package App::Pstatus::Status::Cgit;
 
 use strict;
 use warnings;
@@ -9,7 +9,7 @@ use File::Slurp;
 use List::Util qw(first);
 use Sort::Versions;
 
-sub run {
+sub check {
 	my ($self, $p) = @_;
 	my %res = (
 		ok => 1,

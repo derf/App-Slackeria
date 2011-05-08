@@ -1,11 +1,11 @@
-package App::Pstatus::Check::Ikiwiki;
+package App::Pstatus::Status::Ikiwiki;
 
 use strict;
 use warnings;
 use autodie;
 use 5.010;
 
-sub run {
+sub check {
 	my ($self, $p) = @_;
 	my %res = (
 		ok => 1,

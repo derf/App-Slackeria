@@ -1,4 +1,4 @@
-package App::Pstatus::Check::Freshmeat;
+package App::Pstatus::Status::Freshmeat;
 
 use strict;
 use warnings;
@@ -7,7 +7,7 @@ use 5.010;
 
 use WWW::Freshmeat;
 
-sub run {
+sub check {
 	my ($self, $p, $token) = @_;
 	my %res = (
 		ok => 1,
