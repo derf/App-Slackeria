@@ -12,30 +12,26 @@ use List::Util qw(first);
 use Sort::Versions;
 
 sub check {
-	my ($self, %over_conf) = @_;
-
-	my %res = $self->setup(%over_conf);
+	my ($self, $res) = @_;
 
 	my $git_dir = sprintf($self->{conf}->{git_dir}, $self->{conf}->{name});
 
 	my @tags = split(/\n/, qx{git --git-dir=${git_dir} tag});
 	if (@tags) {
-		$res{data} = 'v' . (sort { versioncmp($a, $b) } @tags)[-1];
+		$res->{data} = 'v' . (sort { versioncmp($a, $b) } @tags)[-1];
 	}
 
 	open(my $fh, '<', "${git_dir}/config");
 	if (not first { $_ eq "\tsharedRepository = world\n" } read_file($fh)) {
-		$res{ok} = 0;
-		$res{data} = 'Repo not shared';
+		$res->{ok} = 0;
+		$res->{data} = 'Repo not shared';
 	}
 	close($fh);
 
 	if (not -e "${git_dir}/git-daemon-export-ok") {
-		$res{ok} = 0;
-		$res{data} = 'git-daemon-export-ok missing';
+		$res->{ok} = 0;
+		$res->{data} = 'git-daemon-export-ok missing';
 	}
-
-	return \%res;
 }
 
 1;

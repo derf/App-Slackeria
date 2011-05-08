@@ -26,7 +26,7 @@ sub load {
 	return $ret;
 }
 
-sub setup {
+sub run {
 	my ($self, %check_conf) = @_;
 	my %conf = %{$self->{default}};
 	my %res;
@@ -34,8 +34,6 @@ sub setup {
 	for my $key (keys %check_conf) {
 		$conf{$key} = $check_conf{$key};
 	}
-
-	$self->{conf} = \%conf;
 
 	%res = (
 		ok => 1,
@@ -46,7 +44,12 @@ sub setup {
 		$res{href} = sprintf($conf{href}, $conf{name});
 	}
 
-	return %res;
+	$self->{conf} = \%conf;
+	$self->{res} = \%res;
+
+	$self->check(\%res);
+
+	return $self->{res};
 }
 
 1;

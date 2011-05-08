@@ -39,9 +39,9 @@ sub load_config {
 my $project = App::Pstatus::List::Cgit->get();
 
 for my $p (keys %{$project}) {
-	$project->{$p}->{git} = $plugin{cgit}->check(name => $p);
-	$project->{$p}->{freshmeat} = $plugin{freshmeat}->check(name => $p);
-	$project->{$p}->{web} = $plugin{ikiwiki}->check(name => $p);
+	$project->{$p}->{git} = $plugin{cgit}->run(name => $p);
+	$project->{$p}->{freshmeat} = $plugin{freshmeat}->run(name => $p);
+	$project->{$p}->{web} = $plugin{ikiwiki}->run(name => $p);
 }
 
 App::Pstatus::Out::XHTML->write($project);
