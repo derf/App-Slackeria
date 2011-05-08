@@ -13,18 +13,21 @@ use App::Pstatus::Out::XHTML;
 use Config::Tiny;
 use File::BaseDir qw(config_files);
 
-my $conf = load_config();
+my $conf = load_config('config');
 my %plugin;
 
-while (my ($section_name, $section) = each %{$conf}) {
-	if ($section_name =~ m{ ^ plugin _ (?<name> .+ ) $ }ox) {
-		$plugin{$+{name}} = App::Pstatus::Plugin->load($+{name}, %{$section});
-	}
+while (my ($name, $section) = each %{$conf}) {
+	$plugin{$name} = App::Pstatus::Plugin->load($name, %{$section});
 }
 
 sub load_config {
-	my $conffile = config_files('pstatus/config');
-	return Config::Tiny->read($conffile);
+	my ($file) = @_;
+	my $conffile = config_files("pstatus/${file}");
+	if ($conffile) {
+		return Config::Tiny->read($conffile);
+	} else {
+		return {};
+	}
 }
 
 # check_cpan
@@ -40,9 +43,18 @@ sub load_config {
 my $project = App::Pstatus::List::Cgit->get();
 
 for my $p (keys %{$project}) {
-	$project->{$p}->{git} = $plugin{cgit}->run(name => $p);
-	$project->{$p}->{freshmeat} = $plugin{freshmeat}->run(name => $p);
-	$project->{$p}->{web} = $plugin{ikiwiki}->run(name => $p);
+
+	my $pconf = load_config($p);
+
+	for my $name (keys %plugin) {
+		my $cconf = $pconf->{$name} // {};
+		$cconf->{name} //= $p;
+		if ((defined $cconf->{enable} and $cconf->{enable} == 0)
+				or ($cconf->{disable})) {
+			next;
+		}
+		$project->{$p}->{$name} = $plugin{$name}->run(%{$cconf});
+	}
 }
 
 App::Pstatus::Out::XHTML->write($project);
