@@ -18,7 +18,7 @@ sub load {
 	eval sprintf(
 		'use App::Pstatus::Plugin::%s;'
 		. '$ret = App::Pstatus::Plugin::%s->new(%%conf);',
-		($plugin) x 2,
+		(ucfirst($plugin)) x 2,
 	);
 	if ($@) {
 		die("Cannot load plugin ${plugin}:\n$@\n");

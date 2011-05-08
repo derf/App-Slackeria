@@ -18,7 +18,7 @@ my %plugin;
 
 for my $key (grep { $_ =~ qr{ ^ plugin_ }ox } keys %{$conf}) {
 	my ($name) = ($key =~ qr{ ^ plugin _ (.+) $ }ox);
-	$plugin{$name} = App::Pstatus::Plugin->load(ucfirst($name), %{$conf->{$key}});
+	$plugin{$name} = App::Pstatus::Plugin->load($name, %{$conf->{$key}});
 }
 
 sub load_config {
