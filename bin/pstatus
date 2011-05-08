@@ -7,19 +7,19 @@ use warnings;
 use autodie;
 use 5.010;
 
-use App::Pstatus::Plugin::Cgit;
-use App::Pstatus::Plugin::Freshmeat;
-use App::Pstatus::Plugin::Ikiwiki;
+use App::Pstatus::Plugin;
 use App::Pstatus::List::Cgit;
 use App::Pstatus::Out::XHTML;
 use Config::Tiny;
 use File::BaseDir qw(config_files);
 
 my $conf = load_config();
+my %plugin;
 
-my $status_cgit = App::Pstatus::Plugin::Cgit->new(%{$conf->{status_cgit}});
-my $status_fm   = App::Pstatus::Plugin::Freshmeat->new(%{$conf->{status_freshmeat}});
-my $status_iki  = App::Pstatus::Plugin::Ikiwiki->new(%{$conf->{status_ikiwiki}});
+for my $key (grep { $_ =~ qr{ ^ plugin_ }ox } keys %{$conf}) {
+	my ($name) = ($key =~ qr{ ^ plugin _ (.+) $ }ox);
+	$plugin{$name} = App::Pstatus::Plugin->load(ucfirst($name), %{$conf->{$key}});
+}
 
 sub load_config {
 	my $conffile = config_files('pstatus/config');
@@ -39,9 +39,9 @@ sub load_config {
 my $project = App::Pstatus::List::Cgit->get();
 
 for my $p (keys %{$project}) {
-	$project->{$p}->{git} = $status_cgit->check(name => $p);
-	$project->{$p}->{freshmeat} = $status_fm->check(name => $p);
-	$project->{$p}->{web} = $status_iki->check(name => $p);
+	$project->{$p}->{git} = $plugin{cgit}->check(name => $p);
+	$project->{$p}->{freshmeat} = $plugin{freshmeat}->check(name => $p);
+	$project->{$p}->{web} = $plugin{ikiwiki}->check(name => $p);
 }
 
 App::Pstatus::Out::XHTML->write($project);

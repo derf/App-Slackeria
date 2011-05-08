@@ -12,6 +12,20 @@ sub new {
 	return bless($ref, $obj);
 }
 
+sub load {
+	my ($obj, $plugin, %conf) = @_;
+	my $ret;
+	eval sprintf(
+		'use App::Pstatus::Plugin::%s;'
+		. '$ret = App::Pstatus::Plugin::%s->new(%%conf);',
+		($plugin) x 2,
+	);
+	if ($@) {
+		die("Cannot load plugin ${plugin}:\n$@\n");
+	}
+	return $ret;
+}
+
 sub prepare_check {
 	my ($self, %check_conf) = @_;
 	my %conf = %{$self->{default}};
