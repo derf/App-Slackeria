@@ -1,4 +1,4 @@
-package App::Pstatus::Status::Freshmeat;
+package App::Pstatus::Plugin::Freshmeat;
 
 use strict;
 use warnings;

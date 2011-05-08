@@ -1,11 +1,11 @@
-package App::Pstatus::Status::Cgit;
+package App::Pstatus::Plugin::Cgit;
 
 use strict;
 use warnings;
 use autodie;
 use 5.010;
 
-use parent 'App::Pstatus::Status';
+use parent 'App::Pstatus::Plugin';
 
 use File::Slurp;
 use List::Util qw(first);

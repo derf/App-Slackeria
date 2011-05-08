@@ -7,9 +7,9 @@ use warnings;
 use autodie;
 use 5.010;
 
-use App::Pstatus::Status::Cgit;
-use App::Pstatus::Status::Freshmeat;
-use App::Pstatus::Status::Ikiwiki;
+use App::Pstatus::Plugin::Cgit;
+use App::Pstatus::Plugin::Freshmeat;
+use App::Pstatus::Plugin::Ikiwiki;
 use App::Pstatus::List::Cgit;
 use App::Pstatus::Out::XHTML;
 use Config::Tiny;
@@ -17,9 +17,9 @@ use File::BaseDir qw(config_files);
 
 my $conf = load_config();
 
-my $status_cgit = App::Pstatus::Status::Cgit->new(%{$conf->{status_cgit}});
-my $status_fm   = App::Pstatus::Status::Freshmeat->new(%{$conf->{status_freshmeat}});
-my $status_iki  = App::Pstatus::Status::Ikiwiki->new(%{$conf->{status_ikiwiki}});
+my $status_cgit = App::Pstatus::Plugin::Cgit->new(%{$conf->{status_cgit}});
+my $status_fm   = App::Pstatus::Plugin::Freshmeat->new(%{$conf->{status_freshmeat}});
+my $status_iki  = App::Pstatus::Plugin::Ikiwiki->new(%{$conf->{status_ikiwiki}});
 
 sub load_config {
 	my $conffile = config_files('pstatus/config');

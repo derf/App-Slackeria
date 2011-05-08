@@ -1,4 +1,4 @@
-package App::Pstatus::Status::Ikiwiki;
+package App::Pstatus::Plugin::Ikiwiki;
 
 use strict;
 use warnings;

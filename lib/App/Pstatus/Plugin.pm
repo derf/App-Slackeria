@@ -1,4 +1,4 @@
-package App::Pstatus::Status::Cgit;
+package App::Pstatus::Plugin::Cgit;
 
 use strict;
 use warnings;
