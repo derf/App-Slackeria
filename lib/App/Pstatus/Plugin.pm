@@ -26,7 +26,7 @@ sub load {
 	return $ret;
 }
 
-sub prepare_check {
+sub setup {
 	my ($self, %check_conf) = @_;
 	my %conf = %{$self->{default}};
 	my %res;

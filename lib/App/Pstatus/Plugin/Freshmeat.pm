@@ -5,33 +5,17 @@ use warnings;
 use autodie;
 use 5.010;
 
-use WWW::Freshmeat;
+use parent 'App::Pstatus::Plugin';
 
-sub new {
-	my ($obj, %conf) = @_;
-	my $ref = {};
-	$ref->{default} = \%conf;
-	$ref->{default}->{href} //= 'http://freshmeat.net/projects/%s/';
-	return bless($ref, $obj);
-}
+use WWW::Freshmeat;
 
 sub check {
 	my ($self, %over_conf) = @_;
-	my %conf = %{$self->{default}};
 
-	for my $key (keys %over_conf) {
-		$conf{$key} = $over_conf{$key};
-	}
+	my %res = $self->setup(%over_conf);
 
-	my $p = $conf{name};
-
-	my %res = (
-		ok => 1,
-		data => q{},
-		href => sprintf($conf{href}, $p),
-	);
-	my $fm = WWW::Freshmeat->new(token => $conf{token});
-	my $fp = $fm->retrieve_project($p);
+	my $fm = WWW::Freshmeat->new(token => $self->{conf}->{token});
+	my $fp = $fm->retrieve_project($self->{conf}->{name});
 
 	if (not defined $fp) {
 		$res{ok} = 0;

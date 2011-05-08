@@ -14,7 +14,7 @@ use Sort::Versions;
 sub check {
 	my ($self, %over_conf) = @_;
 
-	my %res = $self->prepare_check(%over_conf);;
+	my %res = $self->setup(%over_conf);
 
 	my $git_dir = sprintf($self->{conf}->{git_dir}, $self->{conf}->{name});
 
