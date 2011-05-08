@@ -7,14 +7,30 @@ use 5.010;
 
 use WWW::Freshmeat;
 
+sub new {
+	my ($obj, %conf) = @_;
+	my $ref = {};
+	$ref->{default} = \%conf;
+	$ref->{default}->{href} //= 'http://freshmeat.net/projects/%s/';
+	return bless($ref, $obj);
+}
+
 sub check {
-	my ($self, $p, $token) = @_;
+	my ($self, %over_conf) = @_;
+	my %conf = %{$self->{default}};
+
+	for my $key (keys %over_conf) {
+		$conf{$key} = $over_conf{$key};
+	}
+
+	my $p = $conf{name};
+
 	my %res = (
 		ok => 1,
 		data => q{},
-		href => "http://freshmeat.net/projects/${p}/",
+		href => sprintf($conf{href}, $p),
 	);
-	my $fm = WWW::Freshmeat->new(token => $token);
+	my $fm = WWW::Freshmeat->new(token => $conf{token});
 	my $fp = $fm->retrieve_project($p);
 
 	if (not defined $fp) {

@@ -5,14 +5,28 @@ use warnings;
 use autodie;
 use 5.010;
 
+sub new {
+	my ($obj, %conf) = @_;
+	my $ref = {};
+	$ref->{default} = \%conf;
+	return bless($ref, $obj);
+}
+
 sub check {
-	my ($self, $p) = @_;
+	my ($self, %over_conf) = @_;
+	my %conf = %{$self->{default}};
+
+	for my $key (keys %over_conf) {
+		$conf{$key} = $over_conf{$key};
+	}
+	my $p = $conf{name};
+
 	my %res = (
 		ok => 1,
 		data => q{},
-		href => "http://derf.homelinux.org/projects/${p}/",
+		href => sprintf($conf{href}, $p),
 	);
-	my $pfile = "/home/derf/web/org.homelinux.derf/in/projects/${p}.mdwn";
+	my $pfile = sprintf($conf{source_file}, $p);
 	my $re_title = qr{
 		^ \[ \[ \! meta\s title = "
 		$p (?: \s v (?<version> [0-9.-]+ ))?

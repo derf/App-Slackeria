@@ -17,6 +17,10 @@ use File::BaseDir qw(config_files);
 
 my $conf = load_config();
 
+my $status_cgit = App::Pstatus::Status::Cgit->new(%{$conf->{status_cgit}});
+my $status_fm   = App::Pstatus::Status::Freshmeat->new(%{$conf->{status_freshmeat}});
+my $status_iki  = App::Pstatus::Status::Ikiwiki->new(%{$conf->{status_ikiwiki}});
+
 sub load_config {
 	my $conffile = config_files('pstatus/config');
 	return Config::Tiny->read($conffile);
@@ -35,10 +39,9 @@ sub load_config {
 my $project = App::Pstatus::List::Cgit->get();
 
 for my $p (keys %{$project}) {
-	$project->{$p}->{git} = App::Pstatus::Status::Cgit->check($p);
-	$project->{$p}->{web} = App::Pstatus::Status::Ikiwiki->check($p);
-	$project->{$p}->{freshmeat} = App::Pstatus::Status::Freshmeat->check($p,
-		$conf->{freshmeat}->{token});
+	$project->{$p}->{git} = $status_cgit->check(name => $p);
+	$project->{$p}->{freshmeat} = $status_fm->check(name => $p);
+	$project->{$p}->{web} = $status_iki->check(name => $p);
 }
 
 App::Pstatus::Out::XHTML->write($project);
