@@ -5,32 +5,18 @@ use warnings;
 use autodie;
 use 5.010;
 
+use parent 'App::Pstatus::Status';
+
 use File::Slurp;
 use List::Util qw(first);
 use Sort::Versions;
 
-sub new {
-	my ($obj, %conf) = @_;
-	my $ref = {};
-	$ref->{default} = \%conf;
-	return bless($ref, $obj);
-}
-
 sub check {
 	my ($self, %over_conf) = @_;
-	my %conf = %{$self->{default}};
 
-	for my $key (keys %over_conf) {
-		$conf{$key} = $over_conf{$key};
-	}
-	my $p = $conf{name};
+	my %res = $self->prepare_check(%over_conf);;
 
-	my %res = (
-		ok => 1,
-		data => q{},
-		href => sprintf($conf{href}, $p),
-	);
-	my $git_dir = sprintf($conf{git_dir}, $p);
+	my $git_dir = sprintf($self->{conf}->{git_dir}, $self->{conf}->{name});
 
 	my @tags = split(/\n/, qx{git --git-dir=${git_dir} tag});
 	if (@tags) {
