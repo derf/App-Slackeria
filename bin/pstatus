@@ -16,9 +16,10 @@ use File::BaseDir qw(config_files);
 my $conf = load_config();
 my %plugin;
 
-for my $key (grep { $_ =~ qr{ ^ plugin_ }ox } keys %{$conf}) {
-	my ($name) = ($key =~ qr{ ^ plugin _ (.+) $ }ox);
-	$plugin{$name} = App::Pstatus::Plugin->load($name, %{$conf->{$key}});
+while (my ($section_name, $section) = each %{$conf}) {
+	if ($section_name =~ m{ ^ plugin _ (?<name> .+ ) $ }ox) {
+		$plugin{$+{name}} = App::Pstatus::Plugin->load($+{name}, %{$section});
+	}
 }
 
 sub load_config {
