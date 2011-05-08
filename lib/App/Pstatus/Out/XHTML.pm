@@ -6,8 +6,9 @@ use 5.010;
 
 sub show_check {
 	my ($res) = @_;
+	my $class = q{};
 
-	if ($res->{ok} and $res->{data} eq q{}) {
+	if (not $res->{skip} and $res->{ok} and $res->{data} eq q{}) {
 		$res->{data} = 'ok';
 	}
 
@@ -19,9 +20,18 @@ sub show_check {
 		);
 	}
 
+	if (not $res->{skip}) {
+		if ($res->{ok}) {
+			$class = 'ok';
+		}
+		else {
+			$class = 'fail';
+		}
+	}
+
 	printf(
 		'<td class="%s">%s</td>',
-		($res->{ok} ? "ok" : "fail"),
+		$class,
 		$res->{data},
 	);
 }

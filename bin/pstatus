@@ -49,10 +49,6 @@ for my $p (keys %{$project}) {
 	for my $name (keys %plugin) {
 		my $cconf = $pconf->{$name} // {};
 		$cconf->{name} //= $p;
-		if ((defined $cconf->{enable} and $cconf->{enable} == 0)
-				or ($cconf->{disable})) {
-			next;
-		}
 		$project->{$p}->{$name} = $plugin{$name}->run(%{$cconf});
 	}
 }

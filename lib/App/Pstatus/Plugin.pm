@@ -40,6 +40,13 @@ sub run {
 		data => q{},
 	);
 
+	if (
+			(defined $conf{enable} and $conf{enable} == 0)
+			or $conf{disable} ) {
+		$res{skip} = 1;
+		return \%res;
+	}
+
 	if ($conf{href}) {
 		$res{href} = sprintf($conf{href}, $conf{name});
 	}

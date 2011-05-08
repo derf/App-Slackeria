@@ -15,6 +15,8 @@ sub check {
 	my $fm = WWW::Freshmeat->new(token => $self->{conf}->{token});
 	my $fp = $fm->retrieve_project($self->{conf}->{name});
 
+	$res->{href} = 'http://freshmeat.net/projects/%s/';
+
 	if (not defined $fp) {
 		$res->{ok} = 0;
 		$res->{data} = 'not found';
