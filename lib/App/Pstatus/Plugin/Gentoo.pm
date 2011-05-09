@@ -1,4 +1,4 @@
-package App::Pstatus::Plugin::Debian;
+package App::Pstatus::Plugin::Gentoo;
 
 use strict;
 use warnings;
@@ -9,7 +9,7 @@ use parent 'App::Pstatus::Plugin::Whohas';
 sub check {
 	my ($self, $res) = @_;
 
-	$self->run_whohas('debian', $self->{conf}->{name});
+	$self->run_whohas('gentoo', $self->{conf}->{name});
 }
 
 1;
