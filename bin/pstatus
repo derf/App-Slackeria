@@ -35,16 +35,6 @@ sub load_config {
 	}
 }
 
-# check_cpan
-
-# check_github
-
-# check_debian
-
-# check_gentoo
-
-# check_arch
-
 for my $p (keys %{$project}) {
 
 	my $pconf = load_config($p);
