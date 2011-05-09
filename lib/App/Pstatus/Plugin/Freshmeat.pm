@@ -15,7 +15,12 @@ sub check {
 	my $fm = WWW::Freshmeat->new(token => $self->{conf}->{token});
 	my $fp = $fm->retrieve_project($self->{conf}->{name});
 
-	$res->{href} = 'http://freshmeat.net/projects/%s/';
+	$self->{conf}->{href} //= 'http://freshmeat.net/projects/%s/';
+
+	$res->{href} = sprintf(
+		$self->{conf}->{href},
+		$self->{conf}->{name},
+	);
 
 	if (not defined $fp) {
 		$res->{ok} = 0;
