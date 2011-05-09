@@ -19,8 +19,6 @@ sub run_whohas {
 
 	$out = (split(/\n/, $out))[-1];
 
-	print STDERR $out;
-
 	$self->{res}->{data} = substr($out, 51, 10);
 	$self->{res}->{href} = substr($out, 112);
 }
