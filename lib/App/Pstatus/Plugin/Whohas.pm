@@ -9,7 +9,7 @@ use parent 'App::Pstatus::Plugin';
 sub run_whohas {
 	my ($self, $distro, $name) = @_;
 
-	my $out = qx{whohas --strict -d $distro $name};
+	my $out = qx{whohas --no-threads --strict -d $distro $name};
 
 	if (not defined $out or $out eq q{}) {
 		$self->{res}->{ok} = 0;
