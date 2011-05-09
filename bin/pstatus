@@ -52,19 +52,102 @@ __END__
 
 =head1 NAME
 
+B<pstatus> - Project status overview
+
 =head1 SYNOPSIS
+
+B<pstatus>
+
+=head1 VERSION
+
+This is unreleased alpha software.  Use at your own risk.
 
 =head1 DESCRIPTION
 
+B<pstatus> outputs a nice (XHTML) overview of all your projects and their
+status in various distributions, on websites, et cetera.  So far it checks two
+things: First, if the project exists on a given site, and second what version
+it has there.  This output is then put into a table so you can quickly see
+what's missing  or not up-to-date.
+
 =head1 OPTIONS
+
+None, so far.
 
 =head1 EXIT STATUS
 
 =head1 CONFIGURATION
 
+The configuration is stored in F<~/.config/pstatus/> (or whatever prefix your
+B<XDG_CONFIG_HOME> is set to), it is in L<Config::Tiny> INI-style format.  The
+list of projects, plugins and their default configuration are read from
+F<~/.config/pstatus/config>, for each project F<~/.config/pstatus/projectname>
+(if it exists) is also read.  Use it to override global plugin options.
+
+B<pstatus> reads its projects from the whitespace-separated value of the
+"list" key in the "projects" section.  Plugins need to be explicitly enabled
+by creating a section with their lowercase name.  In this section, you can
+configure the plugin (see plugin documentation).
+
+Two options are supported by all modules:
+
+=over
+
+=item enable
+
+Set it to 0 to disable the plugin by default.  You can set it back to 1 in a
+project-specific config file
+
+=item name
+
+Override project name (like App-Pstatus for cpan, but pstatus for freshmeat)
+
+
+=back
+
+=head2 EXAMPLE
+
+    # pstatus/config
+
+    [projects]
+    list = App-Raps2 App-Pstatus caretaker comirror dthumb efa  feh hashl icli
+
+    [git]
+    git_dir = /home/derf/var/git_root/%s
+    href = http://derf.homelinux.org/git/%s/
+
+    [github]
+    owner = derf
+
+    [debian]
+    enable = 0
+
+    [gentoo]
+    enable = 0
+
+    [ubuntu]
+    enable = 0
+
+    # pstatus/App-Pstatus
+
+    [freshmeat]
+    name = pstatus
+
+    [debian]
+    enable = 1
+
 =head1 DEPENDENCIES
 
+B<pstatus> itself only depends on L<Config::Tiny> and L<File::BaseDir>. For
+the plugins, see their documentation.
+
 =head1 BUGS AND LIMITATIONS
+
+Some plugins are based on B<whohas>, which breaks easily.
+
+=head1 SEE ALSO
+
+L<Config::Tiny>, L<App::Pstatus>, L<App::Pstatus::Plugin>.
 
 =head1 AUTHOR
 
