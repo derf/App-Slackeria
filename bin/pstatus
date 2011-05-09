@@ -8,13 +8,18 @@ use autodie;
 use 5.010;
 
 use App::Pstatus::Plugin;
-use App::Pstatus::List::Cgit;
 use App::Pstatus::Out::XHTML;
 use Config::Tiny;
 use File::BaseDir qw(config_files);
 
 my $conf = load_config('config');
 my %plugin;
+my $project;
+
+for my $p (split(/ /, $conf->{projects}->{list})) {
+	$project->{$p} = {};
+}
+delete $conf->{projects};
 
 while (my ($name, $section) = each %{$conf}) {
 	$plugin{$name} = App::Pstatus::Plugin->load($name, %{$section});
@@ -39,8 +44,6 @@ sub load_config {
 # check_gentoo
 
 # check_arch
-
-my $project = App::Pstatus::List::Cgit->get();
 
 for my $p (keys %{$project}) {
 
