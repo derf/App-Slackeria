@@ -12,10 +12,12 @@ sub check {
 
 	my $p = $self->{conf}->{name};
 
+	my $re_p = $self->{conf}->{title_name} // $p;
+
 	my $pfile = sprintf($self->{conf}->{source_file}, $p);
 	my $re_title = qr{
 		^ \[ \[ \! meta\s title = "
-		$p (?: \s v (?<version> [0-9.-]+ ))?
+		$re_p (?: \s v (?<version> [0-9.-]+ ))?
 		" ]] $
 	}x;
 
