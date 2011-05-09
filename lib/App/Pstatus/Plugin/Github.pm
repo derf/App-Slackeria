@@ -27,16 +27,17 @@ sub check {
 		return;
 	}
 
-	if (not keys %{$tags}) {
-		return;
-	}
-
-	$res->{data} = 'v' . (sort { versioncmp($a, $b) } keys %{$tags})[-1];
 	$res->{href} = sprintf(
 		$self->{conf}->{href},
 		$self->{conf}->{owner},
 		$self->{conf}->{name},
 	);
+
+	if (not keys %{$tags}) {
+		return;
+	}
+
+	$res->{data} = 'v' . (sort { versioncmp($a, $b) } keys %{$tags})[-1];
 }
 
 1;
