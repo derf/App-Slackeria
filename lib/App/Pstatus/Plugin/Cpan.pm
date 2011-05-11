@@ -18,8 +18,7 @@ sub new {
 
 sub check {
 	my ($self, $res) = @_;
-	my $cb = $self->{cb};
-	my $mod = $cb->parse_module(module => $self->{conf}->{name});
+	my $mod = $self->{cb}->parse_module(module => $self->{conf}->{name});
 
 	$self->{conf}->{href} //= 'http://search.cpan.org/dist/%s/';
 
