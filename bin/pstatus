@@ -13,8 +13,8 @@ use Config::Tiny;
 use File::BaseDir qw(config_files);
 
 my $conf = load_config('config');
-my %plugin;
 my $project;
+my $plugin = App::Pstatus::Plugin->new();
 
 for my $p (split(/ /, $conf->{projects}->{list})) {
 	$project->{$p} = {};
@@ -22,7 +22,7 @@ for my $p (split(/ /, $conf->{projects}->{list})) {
 delete $conf->{projects};
 
 while (my ($name, $section) = each %{$conf}) {
-	$plugin{$name} = App::Pstatus::Plugin->load($name, %{$section});
+	$plugin->load($name, %{$section});
 }
 
 sub load_config {
@@ -39,10 +39,10 @@ for my $p (keys %{$project}) {
 
 	my $pconf = load_config($p);
 
-	for my $name (keys %plugin) {
+	for my $name ($plugin->list()) {
 		my $cconf = $pconf->{$name} // {};
 		$cconf->{name} //= $p;
-		$project->{$p}->{$name} = $plugin{$name}->run(%{$cconf});
+		$project->{$p}->{$name} = $plugin->run($name, $cconf);
 	}
 }
 

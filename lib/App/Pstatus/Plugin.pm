@@ -8,55 +8,39 @@ use 5.010;
 sub new {
 	my ($obj, %conf) = @_;
 	my $ref = {};
-	$ref->{default} = \%conf;
 	return bless($ref, $obj);
 }
 
 sub load {
-	my ($obj, $plugin, %conf) = @_;
-	my $ret;
+	my ($self, $plugin, %conf) = @_;
+	my $obj;
 	eval sprintf(
 		'use App::Pstatus::Plugin::%s;'
-		. '$ret = App::Pstatus::Plugin::%s->new(%%conf);',
+		. '$obj = App::Pstatus::Plugin::%s->new(%%conf);',
 		(ucfirst($plugin)) x 2,
 	);
 	if ($@) {
-		die("Cannot load plugin ${plugin}:\n$@\n");
+		print STDERR "Cannot load plugin ${plugin}:\n$@\n";
 	}
-	return $ret;
+	else {
+		$self->{plugin}->{$plugin} = $obj;
+	}
+}
+
+sub list {
+	my ($self) = @_;
+	return sort keys %{$self->{plugin}};
 }
 
 sub run {
-	my ($self, %check_conf) = @_;
-	my %conf = %{$self->{default}};
-	my %res;
+	my ($self, $name, $conf) = @_;
 
-	for my $key (keys %check_conf) {
-		$conf{$key} = $check_conf{$key};
+	if ($self->{plugin}->{$name}) {
+		return $self->{plugin}->{$name}->run($conf);
 	}
-
-	%res = (
-		ok => 1,
-		data => q{},
-	);
-
-	if (
-			(defined $conf{enable} and $conf{enable} == 0)
-			or $conf{disable} ) {
-		$res{skip} = 1;
-		return \%res;
+	else {
+		return undef;
 	}
-
-	if ($conf{href}) {
-		$res{href} = sprintf($conf{href}, $conf{name});
-	}
-
-	$self->{conf} = \%conf;
-	$self->{res} = \%res;
-
-	$self->check(\%res);
-
-	return $self->{res};
 }
 
 1;

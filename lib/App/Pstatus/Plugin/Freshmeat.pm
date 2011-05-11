@@ -5,7 +5,7 @@ use warnings;
 use autodie;
 use 5.010;
 
-use parent 'App::Pstatus::Plugin';
+use parent 'App::Pstatus::Plugin::Base';
 
 use WWW::Freshmeat;
 

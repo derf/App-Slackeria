@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use 5.010;
 
-use parent 'App::Pstatus::Plugin';
+use parent 'App::Pstatus::Plugin::Base';
 
 sub run_whohas {
 	my ($self, $distro, $name) = @_;
