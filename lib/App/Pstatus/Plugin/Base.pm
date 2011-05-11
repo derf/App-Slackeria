@@ -15,34 +15,37 @@ sub new {
 sub run {
 	my ($self, $check_conf) = @_;
 	my %conf = %{$self->{default}};
-	my %res;
+	my $ret;
 
 	for my $key (keys %{$check_conf}) {
 		$conf{$key} = $check_conf->{$key};
 	}
 
-	%res = (
-		ok => 1,
-		data => q{},
-	);
-
 	if (
 			(defined $conf{enable} and $conf{enable} == 0)
 			or $conf{disable} ) {
-		$res{skip} = 1;
-		return \%res;
-	}
-
-	if ($conf{href}) {
-		$res{href} = sprintf($conf{href}, $conf{name});
+		return {
+			data => q{},
+			skip => 1,
+		};
 	}
 
 	$self->{conf} = \%conf;
-	$self->{res} = \%res;
 
-	$self->check(\%res);
+	$ret = eval { $self->check() };
 
-	return $self->{res};
+	if ($@ or not defined $ret) {
+		return {
+			ok => 0,
+			data => $@,
+		};
+	}
+
+	if ($conf{href} and not defined $ret->{href}) {
+		$ret->{href} = sprintf($conf{href}, $conf{name});
+	}
+	$ret->{ok} = 1;
+	return $ret;
 }
 
 1;

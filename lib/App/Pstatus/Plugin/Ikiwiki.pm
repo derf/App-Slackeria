@@ -8,7 +8,7 @@ use 5.010;
 use parent 'App::Pstatus::Plugin::Base';
 
 sub check {
-	my ($self, $res) = @_;
+	my ($self) = @_;
 
 	my $p = $self->{conf}->{name};
 
@@ -22,22 +22,23 @@ sub check {
 	}x;
 
 	if (not -e $pfile) {
-		$res->{ok} = 0;
-		$res->{data} = 'Project file missing';
+		die("No project file\n");
 	}
 	else {
 		open(my $fh, '<', $pfile);
 		my $ok = 0;
 		while (my $line = <$fh>) {
 			if ($line =~ $re_title) {
-				$res->{data} = $+{version} ? "v$+{version}" : q{};
-				$ok = 1;
+				return {
+					data => (
+						$+{version}
+						? "v$+{version}"
+						: q{}
+					),
+				};
 			}
 		}
-		if (not $ok) {
-			$res->{ok} = 0;
-			$res->{data} = 'Wrong name in title or no title';
-		}
+		die("Wrong name or no title\n");
 	}
 }
 

@@ -13,6 +13,7 @@ sub new {
 	my ($obj, %conf) = @_;
 	my $ref = {};
 	$ref->{default} = \%conf;
+	$ref->{default}->{href} //= 'http://freshmeat.net/projects/%s/';
 	$ref->{fm} = WWW::Freshmeat->new(token => $conf{token});
 	return bless($ref, $obj);
 }
@@ -22,20 +23,14 @@ sub check {
 
 	my $fp = $self->{fm}->retrieve_project($self->{conf}->{name});
 
-	$self->{conf}->{href} //= 'http://freshmeat.net/projects/%s/';
-
-	$res->{href} = sprintf(
-		$self->{conf}->{href},
-		$self->{conf}->{name},
-	);
-
-	if (not defined $fp) {
-		$res->{ok} = 0;
-		$res->{data} = 'not found';
+	if (defined $fp) {
+		return {
+			data => 'v' . $fp->version(),
+			description => $fp->description(),
+		};
 	}
 	else {
-		$res->{data} = 'v' . $fp->version();
-		$res->{description} = $fp->description();
+		die("not found\n");
 	}
 }
 

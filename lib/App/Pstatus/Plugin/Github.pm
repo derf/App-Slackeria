@@ -10,7 +10,7 @@ use Net::GitHub;
 use Sort::Versions;
 
 sub check {
-	my ($self, $res) = @_;
+	my ($self) = @_;
 
 	my $github = Net::GitHub->new(
 		owner => $self->{conf}->{owner},
@@ -22,22 +22,23 @@ sub check {
 	my $tags = $github->repos()->tags();
 
 	if ($tags->{error}) {
-		$res->{data} = $tags->{error};
-		$res->{ok} = 0;
-		return;
+		die($tags->{error});
 	}
-
-	$res->{href} = sprintf(
-		$self->{conf}->{href},
-		$self->{conf}->{owner},
-		$self->{conf}->{name},
-	);
 
 	if (not keys %{$tags}) {
-		return;
+		return {
+			data => q{},
+		}
 	}
 
-	$res->{data} = 'v' . (sort { versioncmp($a, $b) } keys %{$tags})[-1];
+	return {
+		data => 'v' . (sort { versioncmp($a, $b) } keys %{$tags})[-1],
+		href => sprintf(
+			$self->{conf}->{href},
+			$self->{conf}->{owner},
+			$self->{conf}->{name},
+		),
+	};
 }
 
 1;

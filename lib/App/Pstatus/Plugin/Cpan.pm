@@ -12,23 +12,22 @@ sub new {
 	my ($obj, %conf) = @_;
 	my $ref = {};
 	$ref->{default} = \%conf;
+	$ref->{default}->{href} //= 'http://search.cpan.org/dist/%s/';
 	$ref->{cb} = CPANPLUS::Backend->new();
 	return bless($ref, $obj);
 }
 
 sub check {
-	my ($self, $res) = @_;
+	my ($self) = @_;
 	my $mod = $self->{cb}->parse_module(module => $self->{conf}->{name});
 
-	$self->{conf}->{href} //= 'http://search.cpan.org/dist/%s/';
-
 	if ($mod) {
-		$res->{data} = 'v' . $mod->version();
-		$res->{href} = sprintf($self->{conf}->{href},
-			$self->{conf}->{name});
+		return {
+			data => 'v' . $mod->version(),
+		};
 	}
 	else {
-		$res->{ok} = 0;
+		die("not found\n");
 	}
 }
 

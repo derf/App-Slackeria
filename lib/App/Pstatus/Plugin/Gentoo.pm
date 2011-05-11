@@ -7,9 +7,9 @@ use 5.010;
 use parent 'App::Pstatus::Plugin::Whohas';
 
 sub check {
-	my ($self, $res) = @_;
+	my ($self) = @_;
 
-	$self->run_whohas('gentoo', $self->{conf}->{name});
+	return $self->run_whohas('gentoo', $self->{conf}->{name});
 }
 
 1;
