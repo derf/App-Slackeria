@@ -11,6 +11,7 @@ my $build = Module::Build->new(
 	dist_version_from => 'bin/pstatus',
 	license => 'unrestricted',
 	recommends => {
+		'CPANPLUS' => 0,
 		'File::Slurp' => 0,
 		'List::Util' => 0,
 		'Net::GitHub' => 0,
