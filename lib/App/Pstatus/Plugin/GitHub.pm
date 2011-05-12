@@ -1,4 +1,4 @@
-package App::Pstatus::Plugin::Github;
+package App::Pstatus::Plugin::GitHub;
 
 use strict;
 use warnings;
@@ -47,13 +47,13 @@ __END__
 
 =head1 NAME
 
-B<App::Pstatus::Plugin::Github> - Check project on github.com
+B<App::Pstatus::Plugin::GitHub> - Check project on github.com
 
 =head1 SYNOPSIS
 
 In F<pstatus/config>
 
-    [github]
+    [GitHub]
     owner = your github username
 
 =head1 DESCRIPTION

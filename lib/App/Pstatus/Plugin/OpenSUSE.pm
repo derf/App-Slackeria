@@ -1,4 +1,4 @@
-package App::Pstatus::Plugin::Netbsd;
+package App::Pstatus::Plugin::OpenSUSE;
 
 use strict;
 use warnings;
@@ -9,7 +9,7 @@ use parent 'App::Pstatus::Plugin::Whohas';
 sub check {
 	my ($self) = @_;
 
-	return $self->run_whohas('NetBSD', $self->{conf}->{name});
+	return $self->run_whohas('OpenSUSE', $self->{conf}->{name});
 }
 
 1;
@@ -18,17 +18,17 @@ __END__
 
 =head1 NAME
 
-B<App::Pstatus::Plugin::Netbsd> - Check project version in NetBSD
+B<App::Pstatus::Plugin::OpenSUSE> - Check project version in OpenSUSE
 
 =head1 SYNOPSIS
 
 In F<pstatus/config>
 
-    [netbsd]
+    [OpenSUSE]
 
 =head1 DESCRIPTION
 
-This plugin queries a project and its version in the latest NetBSD version
+This plugin queries a project and its version in the latest OpenSUSE version
 using L<whohas>.
 
 =head1 CONFIGURATION

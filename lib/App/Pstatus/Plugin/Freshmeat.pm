@@ -46,7 +46,7 @@ B<App::Pstatus::Plugin::Freshmeat> - Check project on freshmeat.net
 
 In F<pstatus/config>
 
-    [freshmeat]
+    [Freshmeat]
     token = something
 
 =head1 DESCRIPTION

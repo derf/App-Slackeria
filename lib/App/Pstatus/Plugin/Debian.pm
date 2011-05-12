@@ -24,7 +24,7 @@ B<App::Pstatus::Plugin::Debian> - Check project version in Debian
 
 In F<pstatus/config>
 
-    [debian]
+    [Debian]
 
 =head1 DESCRIPTION
 

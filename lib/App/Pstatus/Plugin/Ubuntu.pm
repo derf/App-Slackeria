@@ -24,7 +24,7 @@ B<App::Pstatus::Plugin::Ubuntu> - Check project version in Ubuntu
 
 In F<pstatus/config>
 
-    [ubuntu]
+    [Ubuntu]
 
 =head1 DESCRIPTION
 

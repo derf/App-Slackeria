@@ -24,7 +24,7 @@ B<App::Pstatus::Plugin::Gentoo> - Check project version in Gentoo
 
 In F<pstatus/config>
 
-    [gentoo]
+    [Gentoo]
 
 =head1 DESCRIPTION
 

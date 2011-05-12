@@ -1,4 +1,4 @@
-package App::Pstatus::Plugin::Cpan;
+package App::Pstatus::Plugin::CPAN;
 
 use strict;
 use warnings;
@@ -37,13 +37,13 @@ __END__
 
 =head1 NAME
 
-B<App::Pstatus::Plugin::Cpan> - Check module distribution on CPAN
+B<App::Pstatus::Plugin::CPAN> - Check module distribution on CPAN
 
 =head1 SYNOPSIS
 
 In F<pstatus/config>
 
-    [cpan]
+    [CPAN]
 
 =head1 DESCRIPTION
 

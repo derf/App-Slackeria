@@ -1,4 +1,4 @@
-package App::Pstatus::Plugin::Freebsd;
+package App::Pstatus::Plugin::FreeBSD;
 
 use strict;
 use warnings;
@@ -18,13 +18,13 @@ __END__
 
 =head1 NAME
 
-B<App::Pstatus::Plugin::Freebsd> - Check project version in FreeBSD
+B<App::Pstatus::Plugin::FreeBSD> - Check project version in FreeBSD
 
 =head1 SYNOPSIS
 
 In F<pstatus/config>
 
-    [freebsd]
+    [FreeBSD]
 
 =head1 DESCRIPTION
 
