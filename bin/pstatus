@@ -7,42 +7,27 @@ use warnings;
 use autodie;
 use 5.010;
 
+use App::Pstatus::Config;
 use App::Pstatus::Plugin;
 use App::Pstatus::Out::XHTML;
-use Config::Tiny;
-use File::BaseDir qw(config_files);
 
-my $conf = load_config('config');
+my $conf = App::Pstatus::Config->new();
 my $project;
 my $plugin = App::Pstatus::Plugin->new();
 
-for my $p (split(/ /, $conf->{projects}->{list})) {
+for my $p ($conf->projects()) {
 	$project->{$p} = {};
 }
-delete $conf->{projects};
 
-while (my ($name, $section) = each %{$conf}) {
-	$plugin->load($name, %{$section});
-}
-
-sub load_config {
-	my ($file) = @_;
-	my $conffile = config_files("pstatus/${file}");
-	if ($conffile) {
-		return Config::Tiny->read($conffile);
-	} else {
-		return {};
-	}
+for my $name ($conf->plugins()) {
+	$plugin->load($name, %{ $conf->get('config', $name) });
 }
 
 for my $p (keys %{$project}) {
 
-	my $pconf = load_config($p);
-
 	for my $name ($plugin->list()) {
-		my $cconf = $pconf->{$name} // {};
-		$cconf->{name} //= $p;
-		$project->{$p}->{$name} = $plugin->run($name, $cconf);
+		$project->{$p}->{$name} = $plugin->run($name, 
+				$conf->get($p, $name));
 	}
 }
 
