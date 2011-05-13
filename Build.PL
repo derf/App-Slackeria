@@ -23,6 +23,7 @@ my $build = Module::Build->new(
 		'autodie' => 0,
 		'Config::Tiny' => 0,
 		'File::BaseDir' => 0,
+		'HTML::Template' => 0,
 	},
 	script_files => 'bin/',
 );

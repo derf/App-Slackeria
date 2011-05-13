@@ -136,8 +136,8 @@ Override project name (like App-Pstatus for cpan, but pstatus for freshmeat)
 
 =head1 DEPENDENCIES
 
-B<pstatus> itself only depends on L<Config::Tiny> and L<File::BaseDir>. For
-the plugins, see their documentation.
+B<pstatus> itself only depends on L<Config::Tiny>, L<File::BaseDir> and
+L<HTML::Template>. For the plugins, see their documentation.
 
 =head1 BUGS AND LIMITATIONS
 
