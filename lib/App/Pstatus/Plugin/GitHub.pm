@@ -18,6 +18,12 @@ sub check {
 	);
 
 	$self->{conf}->{href} //= 'http://github.com/%s/%s';
+	my $href = sprintf(
+		$self->{conf}->{href},
+		$self->{conf}->{owner},
+		$self->{conf}->{name},
+	);
+
 
 	my $tags = $github->repos()->tags();
 
@@ -28,16 +34,13 @@ sub check {
 	if (not keys %{$tags}) {
 		return {
 			data => q{},
+			href => $href,
 		}
 	}
 
 	return {
 		data => 'v' . (sort { versioncmp($a, $b) } keys %{$tags})[-1],
-		href => sprintf(
-			$self->{conf}->{href},
-			$self->{conf}->{owner},
-			$self->{conf}->{name},
-		),
+		href => $href,
 	};
 }
 

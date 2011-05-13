@@ -41,7 +41,7 @@ sub run {
 		};
 	}
 
-	if ($conf{href} and not defined $ret->{href}) {
+	if (defined $conf{href} and not defined $ret->{href}) {
 		$ret->{href} = sprintf($conf{href}, $conf{name});
 	}
 	$ret->{ok} = 1;

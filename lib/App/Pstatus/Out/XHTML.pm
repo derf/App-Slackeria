@@ -4,7 +4,7 @@ use warnings;
 use autodie;
 use 5.010;
 
-sub show_check {
+sub format_check {
 	my ($res) = @_;
 	my $class = q{};
 
@@ -29,7 +29,7 @@ sub show_check {
 		}
 	}
 
-	printf(
+	return sprintf(
 		'<td class="%s">%s</td>',
 		$class,
 		$res->{data},
@@ -37,10 +37,10 @@ sub show_check {
 }
 
 sub write {
-	my ($self, $project) = @_;
+	my ($self, $filename, $project) = @_;
 	my $firstline = 1;
 
-	print(<<'EOF');
+	my $html = <<'EOF';
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
@@ -82,24 +82,28 @@ EOF
 
 	for my $p (sort keys %{$project}) {
 		if ($firstline) {
-			print '<tr><th>';
-			print join('</th><th>', 'name', sort keys %{$project->{$p}});
-			print '</th></tr>';
+			$html .= '<tr><th>';
+			$html .= join('</th><th>', 'name', sort keys %{$project->{$p}});
+			$html .= '</th></tr>';
 			$firstline = 0;
 		}
-		say("<tr><td>${p}</td>");
+		$html .= "<tr><td>${p}</td>\n";
 		for my $check (sort keys %{$project->{$p}}) {
-			show_check($project->{$p}->{$check});
+			$html .= format_check($project->{$p}->{$check});
 		}
-		say ('</tr>');
+		$html .= "</tr>";
 	}
 
-	print(<<'EOF');
+	$html .= <<'EOF';
 </table>
 </div>
 </body>
 </html>
 EOF
+
+	open (my $fh, '>', $filename);
+	print $fh $html;
+	close($fh);
 
 }
 

@@ -10,10 +10,18 @@ use 5.010;
 use App::Pstatus::Config;
 use App::Pstatus::Plugin;
 use App::Pstatus::Out::XHTML;
+use Getopt::Long;
 
 my $conf = App::Pstatus::Config->new();
 my $project;
 my $plugin = App::Pstatus::Plugin->new();
+my $verbose = 0;
+
+GetOptions(
+	'v|verbose' => \$verbose,
+);
+
+my $filename = shift;
 
 for my $p ($conf->projects()) {
 	$project->{$p} = {};
@@ -26,12 +34,17 @@ for my $name ($conf->plugins()) {
 for my $p (keys %{$project}) {
 
 	for my $name ($plugin->list()) {
+
+		if ($verbose) {
+			say "Running ${p}/${name}";
+		}
+
 		$project->{$p}->{$name} = $plugin->run($name, 
 				$conf->get($p, $name));
 	}
 }
 
-App::Pstatus::Out::XHTML->write($project);
+App::Pstatus::Out::XHTML->write($filename, $project);
 
 __END__
 
