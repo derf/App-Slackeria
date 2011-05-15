@@ -30,11 +30,7 @@ sub check {
 		while (my $line = <$fh>) {
 			if ($line =~ $re_title) {
 				return {
-					data => (
-						$+{version}
-						? "v$+{version}"
-						: q{}
-					),
+					data => $+{version} // q{},
 				};
 			}
 		}

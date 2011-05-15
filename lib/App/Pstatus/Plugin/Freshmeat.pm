@@ -25,7 +25,7 @@ sub check {
 
 	if (defined $fp) {
 		return {
-			data => 'v' . $fp->version(),
+			data => $fp->version(),
 			description => $fp->description(),
 		};
 	}

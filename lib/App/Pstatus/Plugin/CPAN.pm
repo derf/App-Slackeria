@@ -23,7 +23,7 @@ sub check {
 
 	if ($mod) {
 		return {
-			data => 'v' . $mod->version(),
+			data => $mod->version(),
 		};
 	}
 	else {

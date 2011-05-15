@@ -31,7 +31,7 @@ sub check {
 	return {
 		data => (
 			@tags
-			? 'v' . (sort { versioncmp($a, $b) } @tags)[-1]
+			? (sort { versioncmp($a, $b) } @tags)[-1]
 			: q{}
 		),
 	};

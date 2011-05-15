@@ -39,7 +39,7 @@ sub check {
 	}
 
 	return {
-		data => 'v' . (sort { versioncmp($a, $b) } keys %{$tags})[-1],
+		data => (sort { versioncmp($a, $b) } keys %{$tags})[-1],
 		href => $href,
 	};
 }
