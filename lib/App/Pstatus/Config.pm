@@ -23,7 +23,7 @@ sub get {
 		$self->{file}->{$name}->{$section}->{name} //= $name;
 	}
 
-	return $self->{file}->{$name}->{$section};
+	return $self->{file}->{$name}->{$section} // {};
 }
 
 

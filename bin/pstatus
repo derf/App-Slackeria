@@ -16,18 +16,28 @@ my $conf = App::Pstatus::Config->new();
 my $project;
 my $plugin = App::Pstatus::Plugin->new();
 my $verbose = 0;
+my (@plugins, @projects);
 
 GetOptions(
+	'P|projects=s@' => sub { push(@projects, split(qr{,}, $_[1])) },
+	'p|plugins=s@' => sub { push(@plugins, split(qr{,}, $_[1])) },
 	'v|verbose' => \$verbose,
 );
 
+if (@projects == 0) {
+	@projects = $conf->projects();
+}
+if (@plugins == 0) {
+	@plugins = $conf->plugins();
+}
+
 my $filename = shift;
 
-for my $p ($conf->projects()) {
+for my $p (@projects) {
 	$project->{$p} = {};
 }
 
-for my $name ($conf->plugins()) {
+for my $name (@plugins) {
 	$plugin->load($name, %{ $conf->get('config', $name) });
 }
 
@@ -70,7 +80,13 @@ what's missing  or not up-to-date.
 
 =head1 OPTIONS
 
-None, so far.
+=over
+
+=item B<-v>, B<--verbose>
+
+Show the names of projects/plugins as they are run.
+
+=back
 
 =head1 EXIT STATUS
 
