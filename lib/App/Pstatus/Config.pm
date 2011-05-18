@@ -44,8 +44,8 @@ sub load {
 
 	if ($name eq 'config') {
 		$self->{projects} = [ split(/ /,
-				$self->{file}->{$name}->{projects}->{list}) ];
-		delete $self->{file}->{$name}->{projects};
+				$self->{file}->{$name}->{pstatus}->{projects}) ];
+		delete $self->{file}->{$name}->{pstatus};
 	}
 }
 
@@ -115,12 +115,12 @@ use it.
 
 =item $config->projects()
 
-Returns an array of all projects, as listed in the B<list> key in the
-B<projects> section of the B<config> file.
+Returns an array of all projects, as listed in the B<projects> key in the
+B<pstatus> section of the B<config> file.
 
 =item $config->plugins()
 
-Returns an array of all plugins, which is actually just a list off all
+Returns an array of all plugins, which is actually just a list of all
 sections in the B<config> file.
 
 =back
