@@ -26,7 +26,6 @@ sub check {
 	}
 	else {
 		open(my $fh, '<', $pfile);
-		my $ok = 0;
 		while (my $line = <$fh>) {
 			if ($line =~ $re_title) {
 				return {
