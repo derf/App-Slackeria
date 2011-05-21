@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use 5.010;
 
-use parent 'App::Pstatus::Plugin';
+use parent 'App::Pstatus::Plugin::Base';
 
 use LWP::UserAgent;
 use XML::LibXML;
@@ -40,6 +40,8 @@ sub check {
 			};
 		}
 	}
+
+	die("not found\n");
 }
 
 1;
@@ -60,9 +62,27 @@ In F<pstatus/config>
 
 This plugin queries a project's port on openports.se.
 
+More precisely, it checks wether
+http://openports.se/search.php?stype=folder&so=I<name> reports an "*** Exact
+match ***", and if so, returns its version.
+
 =head1 CONFIGURATION
 
 None.
+
+=head1 DEPENDENCIES
+
+=over
+
+=item * LWP::UserAgent
+
+=item * XML::LibXML
+
+=back
+
+=head1 SEE ALSO
+
+pstatus(1)
 
 =head1 AUTHOR
 
