@@ -9,12 +9,23 @@ use parent 'App::Pstatus::Plugin::Base';
 use LWP::UserAgent;
 use XML::LibXML;
 
+sub new {
+	my ($obj, %conf) = @_;
+
+	my $ref = {};
+
+	$ref->{default} = \%conf;
+
+	$ref->{ua} = LWP::UserAgent->new( timeout => 10 );
+
+	return bless($ref, $obj);
+}
+
 sub check {
 	my ($self) = @_;
 
 	my $name  = $self->{conf}->{name};
-	my $ua    = LWP::UserAgent->new( timeout => 10 );
-	my $reply = $ua
+	my $reply = $self->{ua}
 		->get("http://openports.se/search.php?stype=folder&so=${name}");
 
 	if ( not $reply->is_success() ) {
