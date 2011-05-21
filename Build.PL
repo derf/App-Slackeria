@@ -6,6 +6,9 @@ use Module::Build;
 
 my $build = Module::Build->new(
 	build_requires => {
+		'Test::Compile' => 0,
+		'Test::More' => 0,
+		'Test::Pod' => 0,
 	},
 	dist_name => 'App-Pstatus',
 	dist_version_from => 'bin/pstatus',
