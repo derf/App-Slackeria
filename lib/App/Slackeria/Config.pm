@@ -2,7 +2,6 @@ package App::Slackeria::Config;
 
 use strict;
 use warnings;
-use autodie;
 use 5.010;
 
 use Config::Tiny;
