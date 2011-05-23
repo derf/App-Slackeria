@@ -9,6 +9,8 @@ use parent 'App::Slackeria::Plugin::Base';
 use Net::GitHub;
 use Sort::Versions;
 
+our $VERSION = '0.1';
+
 sub check {
 	my ($self) = @_;
 
@@ -50,7 +52,7 @@ __END__
 
 =head1 NAME
 
-B<App::Slackeria::Plugin::GitHub> - Check project on github.com
+App::Slackeria::Plugin::GitHub - Check project on github.com
 
 =head1 SYNOPSIS
 
@@ -58,6 +60,10 @@ In F<slackeria/config>
 
     [GitHub]
     owner = your github username
+
+=head1 VERSION
+
+version 0.1
 
 =head1 DESCRIPTION
 

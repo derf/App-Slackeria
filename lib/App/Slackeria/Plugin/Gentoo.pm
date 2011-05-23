@@ -6,6 +6,8 @@ use 5.010;
 
 use parent 'App::Slackeria::Plugin::Whohas';
 
+our $VERSION = '0.1';
+
 sub check {
 	my ($self) = @_;
 
@@ -18,13 +20,17 @@ __END__
 
 =head1 NAME
 
-B<App::Slackeria::Plugin::Gentoo> - Check project version in Gentoo
+App::Slackeria::Plugin::Gentoo - Check project version in Gentoo
 
 =head1 SYNOPSIS
 
 In F<slackeria/config>
 
     [Gentoo]
+
+=head1 VERSION
+
+version 0.1
 
 =head1 DESCRIPTION
 

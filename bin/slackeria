@@ -56,7 +56,7 @@ for my $p ( keys %{$project} ) {
 	}
 }
 
-App::Slackeria::Out::XHTML->write( $filename, $project );
+App::Slackeria::Out::XHTML->write_out( $filename, $project );
 
 __END__
 

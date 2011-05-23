@@ -9,6 +9,8 @@ use parent 'App::Slackeria::Plugin::Base';
 
 use WWW::Freshmeat;
 
+our $VERSION = '0.1';
+
 sub new {
 	my ($obj, %conf) = @_;
 	my $ref = {};
@@ -40,7 +42,7 @@ __END__
 
 =head1 NAME
 
-B<App::Slackeria::Plugin::Freshmeat> - Check project on freshmeat.net
+App::Slackeria::Plugin::Freshmeat - Check project on freshmeat.net
 
 =head1 SYNOPSIS
 
@@ -48,6 +50,10 @@ In F<slackeria/config>
 
     [Freshmeat]
     token = something
+
+=head1 VERSION
+
+version 0.1
 
 =head1 DESCRIPTION
 

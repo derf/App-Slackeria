@@ -37,7 +37,7 @@ sub format_check {
 	};
 }
 
-sub write {
+sub write_out {
 	my ( $self, $filename, $project ) = @_;
 	my @project_lines;
 	my @headers;
@@ -77,6 +77,7 @@ sub write {
 	print $fh $tmpl->output();
 	close($fh);
 
+	return;
 }
 
 1;

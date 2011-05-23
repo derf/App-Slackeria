@@ -9,6 +9,8 @@ use parent 'App::Slackeria::Plugin::Base';
 use LWP::UserAgent;
 use XML::LibXML;
 
+our $VERSION = '0.1';
+
 sub new {
 	my ($obj, %conf) = @_;
 
@@ -68,6 +70,10 @@ App::Slackeria::Plugin::OpenPorts - Check project version in OpenBSD Ports
 In F<slackeria/config>
 
     [OpenPorts]
+
+=head1 VERSION
+
+version 0.1
 
 =head1 DESCRIPTION
 

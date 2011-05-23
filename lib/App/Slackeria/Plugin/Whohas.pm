@@ -6,6 +6,8 @@ use 5.010;
 
 use parent 'App::Slackeria::Plugin::Base';
 
+our $VERSION = '0.1';
+
 sub run_whohas {
 	my ($self, $distro, $name) = @_;
 

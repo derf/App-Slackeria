@@ -8,6 +8,8 @@ use parent 'App::Slackeria::Plugin::Base';
 
 use CPANPLUS;
 
+our $VERSION = '0.1';
+
 sub new {
 	my ($obj, %conf) = @_;
 	my $ref = {};
@@ -37,13 +39,17 @@ __END__
 
 =head1 NAME
 
-B<App::Slackeria::Plugin::CPAN> - Check module distribution on CPAN
+App::Slackeria::Plugin::CPAN - Check module distribution on CPAN
 
 =head1 SYNOPSIS
 
 In F<slackeria/config>
 
     [CPAN]
+
+=head1 VERSION
+
+version 0.1
 
 =head1 DESCRIPTION
 

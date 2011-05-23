@@ -6,6 +6,8 @@ use 5.010;
 
 use parent 'App::Slackeria::Plugin::Whohas';
 
+our $VERSION = '0.1';
+
 sub check {
 	my ($self) = @_;
 
@@ -18,13 +20,17 @@ __END__
 
 =head1 NAME
 
-B<App::Slackeria::Plugin::FreeBSD> - Check project version in FreeBSD
+App::Slackeria::Plugin::FreeBSD - Check project version in FreeBSD
 
 =head1 SYNOPSIS
 
 In F<slackeria/config>
 
     [FreeBSD]
+
+=head1 VERSION
+
+version 0.1
 
 =head1 DESCRIPTION
 

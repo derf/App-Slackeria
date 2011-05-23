@@ -7,6 +7,8 @@ use 5.010;
 
 use parent 'App::Slackeria::Plugin::Base';
 
+our $VERSION = '0.1';
+
 sub check {
 	my ($self) = @_;
 
@@ -33,6 +35,7 @@ sub check {
 				};
 			}
 		}
+		close($fh);
 		die("Wrong name or no title\n");
 	}
 }

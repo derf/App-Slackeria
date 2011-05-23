@@ -11,6 +11,8 @@ use File::Slurp;
 use List::Util qw(first);
 use Sort::Versions;
 
+our $VERSION = '0.1';
+
 sub check {
 	my ($self) = @_;
 
@@ -41,7 +43,7 @@ sub check {
 
 =head1 NAME
 
-B<App::Slackeria::Plugin::Git> - Check if bare git repo exists in a local
+App::Slackeria::Plugin::Git - Check if bare git repo exists in a local
 directory
 
 =head1 SYNOPSIS
@@ -51,6 +53,10 @@ In F<slackeria/config>
     [git]
     git_dir = /home/user/var/git_root/%s
     href = http://git.example.org/%s/
+
+=head1 VERSION
+
+version 0.1
 
 =head1 DESCRIPTION
 
