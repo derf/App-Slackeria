@@ -40,6 +40,16 @@ This plugin queries a project and its version in Debian Sid using whohas(1).
 
 None.
 
+=head1 DEPENDENCIES
+
+whohas(1).
+
+=head1 BUGS AND LIMITATIONS
+
+This plugin depends entirely on the external program whohas(1).  Since it
+parses its text output, there may be problems with long package names or
+descriptions.
+
 =head1 SEE ALSO
 
 slackeria(1)

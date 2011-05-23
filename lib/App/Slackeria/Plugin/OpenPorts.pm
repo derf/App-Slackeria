@@ -95,6 +95,11 @@ None.
 
 =back
 
+=head1 BUGS AND LIMITATIONS
+
+This plugin does not use an API, but simple HTML output.  It may break
+anytime.
+
 =head1 SEE ALSO
 
 slackeria(1)

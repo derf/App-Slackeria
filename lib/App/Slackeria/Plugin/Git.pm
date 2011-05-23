@@ -41,6 +41,8 @@ sub check {
 
 1;
 
+__END__
+
 =head1 NAME
 
 App::Slackeria::Plugin::Git - Check if bare git repo exists in a local
@@ -81,6 +83,10 @@ Link to point to in output, again %s is replaced by B<name>
 
 File::Slurp(3pm), List::Util(3pm), Sort::Versions(3pm).  The B<git> executable must
 be available.
+
+=head1 BUGS AND LIMITATIONS
+
+None known.
 
 =head1 SEE ALSO
 

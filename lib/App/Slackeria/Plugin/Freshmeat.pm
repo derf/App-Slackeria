@@ -78,6 +78,10 @@ Set this to your freshmeat access token (mandatory)
 
 Requires the WWW::Freshmeat(3pm) perl module.
 
+=head1 BUGS AND LIMITATIONS
+
+None known.
+
 =head1 SEE ALSO
 
 slackeria(1)

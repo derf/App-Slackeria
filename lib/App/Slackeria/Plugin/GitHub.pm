@@ -87,6 +87,10 @@ Repository owner.  Mandatory
 
 Requires Net::GitHub(3pm) and Sort::Versions(3pm).
 
+=head1 BUGS AND LIMITATIONS
+
+None known.
+
 =head1 SEE ALSO
 
 slackeria(1)
