@@ -63,15 +63,15 @@ __END__
 
 =head1 NAME
 
-B<slackeria> - Project status overview
+slackeria - Project status overview
 
 =head1 SYNOPSIS
 
-B<slackeria>
+B<slackeria> [B<-v>|B<--verbose>] I<outfile>
 
 =head1 VERSION
 
-This is unreleased alpha software.  Use at your own risk.
+version 0.1
 
 =head1 DESCRIPTION
 
@@ -89,9 +89,16 @@ what's missing  or not up-to-date.
 
 Show the names of projects/plugins as they are run.
 
+=item B<-V>, B<--version>
+
+Print program version
+
 =back
 
 =head1 EXIT STATUS
+
+Zero unless something went completely wrong.  The exist status does not
+indicate the status of projects or plugins.
 
 =head1 CONFIGURATION
 
@@ -162,9 +169,16 @@ HTML::Template. For the plugins, see their documentation.
 
 Some plugins are based on B<whohas>, which breaks easily.
 
+This is alpha software.  The Plugin API and Config format can be considered
+stable, but other things may still change.
+
 =head1 SEE ALSO
 
 Config::Tiny(3pm), App::Slackeria::Plugin(3pm).
+
+=head1 CREDITS
+
+The name "slackeria" is courtesy of Maximilian GaE<szlig>.
 
 =head1 AUTHOR
 
