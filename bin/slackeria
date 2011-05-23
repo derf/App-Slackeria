@@ -10,7 +10,8 @@ use 5.010;
 use App::Slackeria::Config;
 use App::Slackeria::Plugin;
 use App::Slackeria::Out::XHTML;
-use Getopt::Long;
+
+use Getopt::Long qw(:config no_ignore_case);
 
 my $conf = App::Slackeria::Config->new();
 my $project;
@@ -24,6 +25,7 @@ GetOptions(
 	'P|projects=s@' => sub { push( @projects, split( qr{,}, $_[1] ) ) },
 	'p|plugins=s@'  => sub { push( @plugins,  split( qr{,}, $_[1] ) ) },
 	'v|verbose'     => \$verbose,
+	'V|version' => sub { say "slackeria version ${VERSION}"; exit 0 },
 );
 
 if ( @projects == 0 ) {
