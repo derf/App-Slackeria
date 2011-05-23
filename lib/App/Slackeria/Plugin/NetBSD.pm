@@ -1,15 +1,15 @@
-package App::Pstatus::Plugin::Ubuntu;
+package App::Slackeria::Plugin::NetBSD;
 
 use strict;
 use warnings;
 use 5.010;
 
-use parent 'App::Pstatus::Plugin::Whohas';
+use parent 'App::Slackeria::Plugin::Whohas';
 
 sub check {
 	my ($self) = @_;
 
-	return $self->run_whohas('ubuntu', $self->{conf}->{name});
+	return $self->run_whohas('NetBSD', $self->{conf}->{name});
 }
 
 1;
@@ -18,17 +18,17 @@ __END__
 
 =head1 NAME
 
-B<App::Pstatus::Plugin::Ubuntu> - Check project version in Ubuntu
+B<App::Slackeria::Plugin::Netbsd> - Check project version in NetBSD
 
 =head1 SYNOPSIS
 
-In F<pstatus/config>
+In F<slackeria/config>
 
-    [Ubuntu]
+    [NetBSD]
 
 =head1 DESCRIPTION
 
-This plugin queries a project and its version in the latest Ubuntu version
+This plugin queries a project and its version in the latest NetBSD version
 using L<whohas>.
 
 =head1 CONFIGURATION
@@ -37,7 +37,7 @@ None.
 
 =head1 SEE ALSO
 
-L<pstatus>
+L<slackeria>
 
 =head1 AUTHOR
 

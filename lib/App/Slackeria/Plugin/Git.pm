@@ -1,11 +1,11 @@
-package App::Pstatus::Plugin::Git;
+package App::Slackeria::Plugin::Git;
 
 use strict;
 use warnings;
 use autodie;
 use 5.010;
 
-use parent 'App::Pstatus::Plugin::Base';
+use parent 'App::Slackeria::Plugin::Base';
 
 use File::Slurp;
 use List::Util qw(first);
@@ -41,12 +41,12 @@ sub check {
 
 =head1 NAME
 
-B<App::Pstatus::Plugin::Git> - Check if bare git repo exists in a local
+B<App::Slackeria::Plugin::Git> - Check if bare git repo exists in a local
 directory
 
 =head1 SYNOPSIS
 
-In F<pstatus/config>
+In F<slackeria/config>
 
     [git]
     git_dir = /home/user/var/git_root/%s
@@ -78,7 +78,7 @@ be available.
 
 =head1 SEE ALSO
 
-L<pstatus>
+L<slackeria>
 
 =head1 AUTHOR
 

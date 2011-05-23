@@ -1,10 +1,10 @@
-package App::Pstatus::Plugin::Gentoo;
+package App::Slackeria::Plugin::Gentoo;
 
 use strict;
 use warnings;
 use 5.010;
 
-use parent 'App::Pstatus::Plugin::Whohas';
+use parent 'App::Slackeria::Plugin::Whohas';
 
 sub check {
 	my ($self) = @_;
@@ -18,11 +18,11 @@ __END__
 
 =head1 NAME
 
-B<App::Pstatus::Plugin::Gentoo> - Check project version in Gentoo
+B<App::Slackeria::Plugin::Gentoo> - Check project version in Gentoo
 
 =head1 SYNOPSIS
 
-In F<pstatus/config>
+In F<slackeria/config>
 
     [Gentoo]
 
@@ -36,7 +36,7 @@ None.
 
 =head1 SEE ALSO
 
-L<pstatus>
+L<slackeria>
 
 =head1 AUTHOR
 

@@ -1,4 +1,4 @@
-package App::Pstatus::Plugin;
+package App::Slackeria::Plugin;
 
 use strict;
 use warnings;
@@ -15,8 +15,8 @@ sub load {
 	my ($self, $plugin, %conf) = @_;
 	my $obj;
 	eval sprintf(
-		'use App::Pstatus::Plugin::%s;'
-		. '$obj = App::Pstatus::Plugin::%s->new(%%conf);',
+		'use App::Slackeria::Plugin::%s;'
+		. '$obj = App::Slackeria::Plugin::%s->new(%%conf);',
 		(ucfirst($plugin)) x 2,
 	);
 	if ($@) {
@@ -49,47 +49,47 @@ __END__
 
 =head1 NAME
 
-App::Pstatus::Plugin - Plugin wrapper for App::Pstatus
+App::Slackeria::Plugin - Plugin wrapper for App::Slackeria
 
 =head1 SYNOPSIS
 
-    use App::Pstatus::Plugin;
+    use App::Slackeria::Plugin;
 
-    my $plugin = App::Pstatus::Plugin->new();
+    my $plugin = App::Slackeria::Plugin->new();
     my $result;
 
     $plugin->load('CPAN', %cpan_default_conf);
 
-    $result->{pstatus}->{CPAN} = $plugin->run('CPAN', {
-            name => 'App-Pstatus',
-            # further pstatus-specific configuration (if needed)
+    $result->{slackeria}->{CPAN} = $plugin->run('CPAN', {
+            name => 'App-Slackeria',
+            # further slackeria-specific configuration (if needed)
     });
 
-    # $result->{pstatus}->{CPAN} is like:
+    # $result->{slackeria}->{CPAN} is like:
     # {
     #     ok => 1,
     #     data => 'v0.1',
-    #     href => 'http://search.cpan.org/dist/App-Pstatus/'
+    #     href => 'http://search.cpan.org/dist/App-Slackeria/'
     # }
 
 =head1 DESCRIPTION
 
-B<App::Pstatus::Plugin> loads and executes a number of B<pstatus> plugins.  It
+B<App::Slackeria::Plugin> loads and executes a number of B<slackeria> plugins.  It
 also makes sure that any errors in plugins are catched and do not affect the
-code using B<App::Pstatus::Plugin>.
+code using B<App::Slackeria::Plugin>.
 
 =head1 METHODS
 
 =over
 
-=item $plugin = App::Pstatus::Plugin->new()
+=item $plugin = App::Slackeria::Plugin->new()
 
-Returns a new App::Pstatus::Plugin object.  Does not take any arguments.
+Returns a new App::Slackeria::Plugin object.  Does not take any arguments.
 
 =item $plugin->load(I<plugin>, I<%conf>)
 
-Create an internal App::Pstatus::Plugin::I<plugin> object by using it and
-calling App::Pstatus::Plugin::I<plugin>->new(I<%conf>).  If I<plugin> does not
+Create an internal App::Slackeria::Plugin::I<plugin> object by using it and
+calling App::Slackeria::Plugin::I<plugin>->new(I<%conf>).  If I<plugin> does not
 exist or fails during setup, B<load> prints an error message to STDERR.
 
 =item $plugin->list()
@@ -112,7 +112,7 @@ None.
 
 =head1 SEE ALSO
 
-L<pstatus>, L<App::Pstatus::Plugin::Base>.
+L<slackeria>, L<App::Slackeria::Plugin::Base>.
 
 =head1 AUTHOR
 

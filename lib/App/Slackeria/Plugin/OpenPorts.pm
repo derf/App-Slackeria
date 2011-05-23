@@ -1,10 +1,10 @@
-package App::Pstatus::Plugin::OpenPorts;
+package App::Slackeria::Plugin::OpenPorts;
 
 use strict;
 use warnings;
 use 5.010;
 
-use parent 'App::Pstatus::Plugin::Base';
+use parent 'App::Slackeria::Plugin::Base';
 
 use LWP::UserAgent;
 use XML::LibXML;
@@ -61,11 +61,11 @@ __END__
 
 =head1 NAME
 
-App::Pstatus::Plugin::OpenPorts - Check project version in OpenBSD Ports
+App::Slackeria::Plugin::OpenPorts - Check project version in OpenBSD Ports
 
 =head1 SYNOPSIS
 
-In F<pstatus/config>
+In F<slackeria/config>
 
     [OpenPorts]
 
@@ -93,7 +93,7 @@ None.
 
 =head1 SEE ALSO
 
-pstatus(1)
+slackeria(1)
 
 =head1 AUTHOR
 

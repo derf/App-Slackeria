@@ -1,4 +1,4 @@
-package App::Pstatus::Plugin::Base;
+package App::Slackeria::Plugin::Base;
 
 use strict;
 use warnings;
@@ -54,11 +54,11 @@ __END__
 
 =head1 NAME
 
-App::Pstatus::Plugin::Base - parent class for all pstatus plugins
+App::Slackeria::Plugin::Base - parent class for all slackeria plugins
 
 =head1 SYNOPSIS
 
-    use parent 'App::Pstatus::Plugin::Base';
+    use parent 'App::Slackeria::Plugin::Base';
 
     sub check {
         my ($self) = @_;
@@ -75,14 +75,14 @@ App::Pstatus::Plugin::Base - parent class for all pstatus plugins
 
 =head1 DESCRIPTION
 
-B<App::Pstatus::Plugin::Base> is not a plugin itself; it is meant to serve as
+B<App::Slackeria::Plugin::Base> is not a plugin itself; it is meant to serve as
 a parent class for all other plugins.
 
 =head1 METHODS
 
 =over
 
-=item $plugin = App::Pstatus::Plugin::Something->new(I<%conf>);
+=item $plugin = App::Slackeria::Plugin::Something->new(I<%conf>);
 
 Returns a new object. A reference to I<%conf> is stored in $self->{default}.
 
@@ -94,7 +94,7 @@ the process.
 
 If $conf{enable} is set to 0, immediately returns { skip => 1 }.
 
-It then calls the check function of App::Pstatus::Plugin::Something. If it
+It then calls the check function of App::Slackeria::Plugin::Something. If it
 fails (dies or returns undef), { ok => 0, data => $@} is returned.
 
 The hashref returned by the B<check> call is returned, with the additional key
@@ -109,7 +109,7 @@ None.
 
 =head1 SEE ALSO
 
-L<pstatus>, L<App::Pstatus::Plugin>.
+L<slackeria>, L<App::Slackeria::Plugin>.
 
 =head1 AUTHOR
 

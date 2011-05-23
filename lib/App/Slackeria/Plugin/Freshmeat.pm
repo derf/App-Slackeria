@@ -1,11 +1,11 @@
-package App::Pstatus::Plugin::Freshmeat;
+package App::Slackeria::Plugin::Freshmeat;
 
 use strict;
 use warnings;
 use autodie;
 use 5.010;
 
-use parent 'App::Pstatus::Plugin::Base';
+use parent 'App::Slackeria::Plugin::Base';
 
 use WWW::Freshmeat;
 
@@ -40,11 +40,11 @@ __END__
 
 =head1 NAME
 
-B<App::Pstatus::Plugin::Freshmeat> - Check project on freshmeat.net
+B<App::Slackeria::Plugin::Freshmeat> - Check project on freshmeat.net
 
 =head1 SYNOPSIS
 
-In F<pstatus/config>
+In F<slackeria/config>
 
     [Freshmeat]
     token = something
@@ -74,7 +74,7 @@ Requires the L<WWW::Freshmeat> perl module.
 
 =head1 SEE ALSO
 
-L<pstatus>
+L<slackeria>
 
 =head1 AUTHOR
 

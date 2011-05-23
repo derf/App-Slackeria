@@ -1,10 +1,10 @@
-package App::Pstatus::Plugin::GitHub;
+package App::Slackeria::Plugin::GitHub;
 
 use strict;
 use warnings;
 use 5.010;
 
-use parent 'App::Pstatus::Plugin::Base';
+use parent 'App::Slackeria::Plugin::Base';
 
 use Net::GitHub;
 use Sort::Versions;
@@ -50,11 +50,11 @@ __END__
 
 =head1 NAME
 
-B<App::Pstatus::Plugin::GitHub> - Check project on github.com
+B<App::Slackeria::Plugin::GitHub> - Check project on github.com
 
 =head1 SYNOPSIS
 
-In F<pstatus/config>
+In F<slackeria/config>
 
     [GitHub]
     owner = your github username
@@ -84,7 +84,7 @@ Requires L<Net::GitHub> and L<Sort::Versions>.
 
 =head1 SEE ALSO
 
-L<pstatus>
+L<slackeria>
 
 =head1 AUTHOR
 

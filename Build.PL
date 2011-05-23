@@ -10,8 +10,8 @@ my $build = Module::Build->new(
 		'Test::More' => 0,
 		'Test::Pod' => 0,
 	},
-	dist_name => 'App-Pstatus',
-	dist_version_from => 'bin/pstatus',
+	dist_name => 'App-Slackeria',
+	dist_version_from => 'bin/slackeria',
 	license => 'unrestricted',
 	recommends => {
 		'CPANPLUS' => 0,

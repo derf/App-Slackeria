@@ -7,14 +7,14 @@ use warnings;
 use autodie;
 use 5.010;
 
-use App::Pstatus::Config;
-use App::Pstatus::Plugin;
-use App::Pstatus::Out::XHTML;
+use App::Slackeria::Config;
+use App::Slackeria::Plugin;
+use App::Slackeria::Out::XHTML;
 use Getopt::Long;
 
-my $conf = App::Pstatus::Config->new();
+my $conf = App::Slackeria::Config->new();
 my $project;
-my $plugin = App::Pstatus::Plugin->new();
+my $plugin = App::Slackeria::Plugin->new();
 my $verbose = 0;
 my (@plugins, @projects);
 
@@ -54,17 +54,17 @@ for my $p (keys %{$project}) {
 	}
 }
 
-App::Pstatus::Out::XHTML->write($filename, $project);
+App::Slackeria::Out::XHTML->write($filename, $project);
 
 __END__
 
 =head1 NAME
 
-B<pstatus> - Project status overview
+B<slackeria> - Project status overview
 
 =head1 SYNOPSIS
 
-B<pstatus>
+B<slackeria>
 
 =head1 VERSION
 
@@ -72,7 +72,7 @@ This is unreleased alpha software.  Use at your own risk.
 
 =head1 DESCRIPTION
 
-B<pstatus> outputs a nice (XHTML) overview of all your projects and their
+B<slackeria> outputs a nice (XHTML) overview of all your projects and their
 status in various distributions, on websites, et cetera.  So far it checks two
 things: First, if the project exists on a given site, and second what version
 it has there.  This output is then put into a table so you can quickly see
@@ -92,14 +92,14 @@ Show the names of projects/plugins as they are run.
 
 =head1 CONFIGURATION
 
-The configuration is stored in F<~/.config/pstatus/> (or whatever prefix your
+The configuration is stored in F<~/.config/slackeria/> (or whatever prefix your
 B<XDG_CONFIG_HOME> is set to), it is in L<Config::Tiny> INI-style format.  The
 list of projects, plugins and their default configuration are read from
-F<~/.config/pstatus/config>, for each project F<~/.config/pstatus/projectname>
+F<~/.config/slackeria/config>, for each project F<~/.config/slackeria/projectname>
 (if it exists) is also read.  Use it to override global plugin options.
 
-B<pstatus> reads its projects from the whitespace-separated value of the
-"projects" key in the "pstatus" section.  Plugins need to be explicitly
+B<slackeria> reads its projects from the whitespace-separated value of the
+"projects" key in the "slackeria" section.  Plugins need to be explicitly
 enabled by creating a section with their name.  In this section, you can
 configure the plugin (see plugin documentation).
 
@@ -114,17 +114,17 @@ project-specific config file
 
 =item name
 
-Override project name (like App-Pstatus for cpan, but pstatus for freshmeat)
+Override project name (like App-Slackeria for cpan, but slackeria for freshmeat)
 
 
 =back
 
 =head2 EXAMPLE
 
-    # pstatus/config
+    # slackeria/config
 
-    [pstatus]
-    projects = App-Raps2 App-Pstatus caretaker comirror dthumb efa feh hashl icli
+    [slackeria]
+    projects = App-Raps2 App-Slackeria caretaker comirror dthumb efa feh hashl icli
 
     [Git]
     git_dir = /home/derf/var/git_root/%s
@@ -142,17 +142,17 @@ Override project name (like App-Pstatus for cpan, but pstatus for freshmeat)
     [Ubuntu]
     enable = 0
 
-    # pstatus/App-Pstatus
+    # slackeria/App-Slackeria
 
     [Freshmeat]
-    name = pstatus
+    name = slackeria
 
     [Debian]
     enable = 1
 
 =head1 DEPENDENCIES
 
-B<pstatus> itself only depends on L<Config::Tiny>, L<File::BaseDir> and
+B<slackeria> itself only depends on L<Config::Tiny>, L<File::BaseDir> and
 L<HTML::Template>. For the plugins, see their documentation.
 
 =head1 BUGS AND LIMITATIONS
@@ -161,7 +161,7 @@ Some plugins are based on B<whohas>, which breaks easily.
 
 =head1 SEE ALSO
 
-L<Config::Tiny>, L<App::Pstatus>, L<App::Pstatus::Plugin>.
+L<Config::Tiny>, L<App::Slackeria>, L<App::Slackeria::Plugin>.
 
 =head1 AUTHOR
 

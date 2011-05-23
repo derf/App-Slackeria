@@ -1,4 +1,4 @@
-package App::Pstatus::Out::XHTML;
+package App::Slackeria::Out::XHTML;
 use strict;
 use warnings;
 use autodie;

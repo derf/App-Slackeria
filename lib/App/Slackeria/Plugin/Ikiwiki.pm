@@ -1,11 +1,11 @@
-package App::Pstatus::Plugin::Ikiwiki;
+package App::Slackeria::Plugin::Ikiwiki;
 
 use strict;
 use warnings;
 use autodie;
 use 5.010;
 
-use parent 'App::Pstatus::Plugin::Base';
+use parent 'App::Slackeria::Plugin::Base';
 
 sub check {
 	my ($self) = @_;

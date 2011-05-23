@@ -1,10 +1,10 @@
-package App::Pstatus::Plugin::OpenSUSE;
+package App::Slackeria::Plugin::OpenSUSE;
 
 use strict;
 use warnings;
 use 5.010;
 
-use parent 'App::Pstatus::Plugin::Whohas';
+use parent 'App::Slackeria::Plugin::Whohas';
 
 sub check {
 	my ($self) = @_;
@@ -18,11 +18,11 @@ __END__
 
 =head1 NAME
 
-B<App::Pstatus::Plugin::OpenSUSE> - Check project version in OpenSUSE
+B<App::Slackeria::Plugin::OpenSUSE> - Check project version in OpenSUSE
 
 =head1 SYNOPSIS
 
-In F<pstatus/config>
+In F<slackeria/config>
 
     [OpenSUSE]
 
@@ -37,7 +37,7 @@ None.
 
 =head1 SEE ALSO
 
-L<pstatus>
+L<slackeria>
 
 =head1 AUTHOR
 

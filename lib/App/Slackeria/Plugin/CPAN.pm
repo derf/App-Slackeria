@@ -1,10 +1,10 @@
-package App::Pstatus::Plugin::CPAN;
+package App::Slackeria::Plugin::CPAN;
 
 use strict;
 use warnings;
 use 5.010;
 
-use parent 'App::Pstatus::Plugin::Base';
+use parent 'App::Slackeria::Plugin::Base';
 
 use CPANPLUS;
 
@@ -37,11 +37,11 @@ __END__
 
 =head1 NAME
 
-B<App::Pstatus::Plugin::CPAN> - Check module distribution on CPAN
+B<App::Slackeria::Plugin::CPAN> - Check module distribution on CPAN
 
 =head1 SYNOPSIS
 
-In F<pstatus/config>
+In F<slackeria/config>
 
     [CPAN]
 
@@ -49,7 +49,7 @@ In F<pstatus/config>
 
 This plugin queries the Comprehensive Perl Archive Network and checks if it
 contains a given module.  Note that its B<name> option may be a module name
-(like "App::Pstatus") as well as a distribution name (like "App-Pstatus").
+(like "App::Slackeria") as well as a distribution name (like "App-Slackeria").
 
 =head1 CONFIGURATION
 
@@ -61,7 +61,7 @@ L<CPANPLUS>.
 
 =head1 SEE ALSO
 
-L<pstatus>
+L<slackeria>
 
 =head1 AUTHOR
 

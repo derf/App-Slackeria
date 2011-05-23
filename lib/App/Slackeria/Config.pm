@@ -1,4 +1,4 @@
-package App::Pstatus::Config;
+package App::Slackeria::Config;
 
 use strict;
 use warnings;
@@ -29,7 +29,7 @@ sub get {
 
 sub load {
 	my ($self, $name) = @_;
-	my $file = config_files("pstatus/${name}");
+	my $file = config_files("slackeria/${name}");
 
 	if (defined $self->{file}->{$name}) {
 		return;
@@ -44,8 +44,8 @@ sub load {
 
 	if ($name eq 'config') {
 		$self->{projects} = [ split(/ /,
-				$self->{file}->{$name}->{pstatus}->{projects}) ];
-		delete $self->{file}->{$name}->{pstatus};
+				$self->{file}->{$name}->{slackeria}->{projects}) ];
+		delete $self->{file}->{$name}->{slackeria};
 	}
 }
 
@@ -67,13 +67,13 @@ __END__
 
 =head1 NAME
 
-App::Pstatus::Plugin - Get config values for App::Pstatus and plugins
+App::Slackeria::Plugin - Get config values for App::Slackeria and plugins
 
 =head1 SYNOPSIS
 
-    use App::Pstatus::Config;
+    use App::Slackeria::Config;
 
-    my $conf = App::Pstatus::Config->new();
+    my $conf = App::Slackeria::Config->new();
     for my $name ($conf->plugins()) {
         my $plugin_conf = $conf->get('config', $name);
         # load plugin
@@ -87,15 +87,15 @@ App::Pstatus::Plugin - Get config values for App::Pstatus and plugins
 
 =head1 DESCRIPTION
 
-B<App::Pstatus::Config> uses L<Config::Tiny> to load config files.
+B<App::Slackeria::Config> uses L<Config::Tiny> to load config files.
 
 =head1 METHODS
 
 =over
 
-=item $config = App::Pstatus::Config->new()
+=item $config = App::Slackeria::Config->new()
 
-Returns a new App::Pstatus::Config object.  Does not take any arguments.
+Returns a new App::Slackeria::Config object.  Does not take any arguments.
 
 =item $config->get(I<$name>, I<$section>)
 
@@ -106,8 +106,8 @@ B<name> field, sets B<name> to I<name> in the hashref.
 
 =item $config->load(I<$name>)
 
-Loads $XDG_CONFIG_HOME/pstatus/I<name> (defaulting to
-~/.config/pstatus/I<name>) and saves its content internally. If the config
+Loads $XDG_CONFIG_HOME/slackeria/I<name> (defaulting to
+~/.config/slackeria/I<name>) and saves its content internally. If the config
 file does not exist, saves an empty hashref.
 
 $config->get automatically calls this, so there should be no need for you to
@@ -116,7 +116,7 @@ use it.
 =item $config->projects()
 
 Returns an array of all projects, as listed in the B<projects> key in the
-B<pstatus> section of the B<config> file.
+B<slackeria> section of the B<config> file.
 
 =item $config->plugins()
 
@@ -131,7 +131,7 @@ L<Config::Tiny>, L<File::BaseDir>.
 
 =head1 SEE ALSO
 
-L<pstatus>
+L<slackeria>
 
 =head1 AUTHOR
 

@@ -1,15 +1,15 @@
-package App::Pstatus::Plugin::NetBSD;
+package App::Slackeria::Plugin::FreeBSD;
 
 use strict;
 use warnings;
 use 5.010;
 
-use parent 'App::Pstatus::Plugin::Whohas';
+use parent 'App::Slackeria::Plugin::Whohas';
 
 sub check {
 	my ($self) = @_;
 
-	return $self->run_whohas('NetBSD', $self->{conf}->{name});
+	return $self->run_whohas('FreeBSD', $self->{conf}->{name});
 }
 
 1;
@@ -18,17 +18,17 @@ __END__
 
 =head1 NAME
 
-B<App::Pstatus::Plugin::Netbsd> - Check project version in NetBSD
+B<App::Slackeria::Plugin::FreeBSD> - Check project version in FreeBSD
 
 =head1 SYNOPSIS
 
-In F<pstatus/config>
+In F<slackeria/config>
 
-    [NetBSD]
+    [FreeBSD]
 
 =head1 DESCRIPTION
 
-This plugin queries a project and its version in the latest NetBSD version
+This plugin queries a project and its version in the latest FreeBSD version
 using L<whohas>.
 
 =head1 CONFIGURATION
@@ -37,7 +37,7 @@ None.
 
 =head1 SEE ALSO
 
-L<pstatus>
+L<slackeria>
 
 =head1 AUTHOR
 

@@ -1,10 +1,10 @@
-package App::Pstatus::Plugin::Whohas;
+package App::Slackeria::Plugin::Whohas;
 
 use strict;
 use warnings;
 use 5.010;
 
-use parent 'App::Pstatus::Plugin::Base';
+use parent 'App::Slackeria::Plugin::Base';
 
 sub run_whohas {
 	my ($self, $distro, $name) = @_;
