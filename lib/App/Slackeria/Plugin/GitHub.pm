@@ -16,7 +16,7 @@ sub check {
 
 	my $github = Net::GitHub->new(
 		owner => $self->{conf}->{owner},
-		repo => $self->{conf}->{name},
+		repo  => $self->{conf}->{name},
 	);
 
 	$self->{conf}->{href} //= 'http://github.com/%s/%s';
@@ -26,22 +26,21 @@ sub check {
 		$self->{conf}->{name},
 	);
 
-
 	my $tags = $github->repos()->tags();
 
-	if ($tags->{error}) {
-		die($tags->{error});
+	if ( $tags->{error} ) {
+		die( $tags->{error} );
 	}
 
-	if (not keys %{$tags}) {
+	if ( not keys %{$tags} ) {
 		return {
 			data => q{},
 			href => $href,
-		}
+		};
 	}
 
 	return {
-		data => (sort { versioncmp($a, $b) } keys %{$tags})[-1],
+		data => ( sort { versioncmp( $a, $b ) } keys %{$tags} )[-1],
 		href => $href,
 	};
 }

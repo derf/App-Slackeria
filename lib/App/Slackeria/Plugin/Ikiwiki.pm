@@ -16,23 +16,21 @@ sub check {
 
 	my $re_p = $self->{conf}->{title_name} // $p;
 
-	my $pfile = sprintf($self->{conf}->{source_file}, $p);
+	my $pfile = sprintf( $self->{conf}->{source_file}, $p );
 	my $re_title = qr{
 		^ \[ \[ \! meta\s title = "
 		$re_p (?: \s v (?<version> [0-9.-]+ ))?
 		" ]] $
 	}x;
 
-	if (not -e $pfile) {
+	if ( not -e $pfile ) {
 		die("No project file\n");
 	}
 	else {
-		open(my $fh, '<', $pfile);
-		while (my $line = <$fh>) {
-			if ($line =~ $re_title) {
-				return {
-					data => $+{version} // q{},
-				};
+		open( my $fh, '<', $pfile );
+		while ( my $line = <$fh> ) {
+			if ( $line =~ $re_title ) {
+				return { data => $+{version} // q{}, };
 			}
 		}
 		close($fh);

@@ -11,7 +11,7 @@ our $VERSION = '0.1';
 sub check {
 	my ($self) = @_;
 
-	return $self->run_whohas('debian', $self->{conf}->{name});
+	return $self->run_whohas( 'debian', $self->{conf}->{name} );
 }
 
 1;

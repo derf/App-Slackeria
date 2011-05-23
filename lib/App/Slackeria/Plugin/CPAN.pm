@@ -11,22 +11,20 @@ use CPANPLUS;
 our $VERSION = '0.1';
 
 sub new {
-	my ($obj, %conf) = @_;
+	my ( $obj, %conf ) = @_;
 	my $ref = {};
 	$ref->{default} = \%conf;
 	$ref->{default}->{href} //= 'http://search.cpan.org/dist/%s/';
 	$ref->{cb} = CPANPLUS::Backend->new();
-	return bless($ref, $obj);
+	return bless( $ref, $obj );
 }
 
 sub check {
 	my ($self) = @_;
-	my $mod = $self->{cb}->parse_module(module => $self->{conf}->{name});
+	my $mod = $self->{cb}->parse_module( module => $self->{conf}->{name} );
 
 	if ($mod) {
-		return {
-			data => $mod->version(),
-		};
+		return { data => $mod->version(), };
 	}
 	else {
 		die("not found\n");

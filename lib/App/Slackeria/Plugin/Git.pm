@@ -16,24 +16,24 @@ our $VERSION = '0.1';
 sub check {
 	my ($self) = @_;
 
-	my $git_dir = sprintf($self->{conf}->{git_dir}, $self->{conf}->{name});
+	my $git_dir = sprintf( $self->{conf}->{git_dir}, $self->{conf}->{name} );
 
-	my @tags = split(/\n/, qx{git --git-dir=${git_dir} tag});
+	my @tags = split( /\n/, qx{git --git-dir=${git_dir} tag} );
 
-	open(my $fh, '<', "${git_dir}/config");
-	if (not first { $_ eq "\tsharedRepository = world\n" } read_file($fh)) {
+	open( my $fh, '<', "${git_dir}/config" );
+	if ( not first { $_ eq "\tsharedRepository = world\n" } read_file($fh) ) {
 		die("Repo not shared\n");
 	}
 	close($fh);
 
-	if (not -e "${git_dir}/git-daemon-export-ok") {
+	if ( not -e "${git_dir}/git-daemon-export-ok" ) {
 		die("git-daemon-export-ok missing\n");
 	}
-	
+
 	return {
 		data => (
 			@tags
-			? (sort { versioncmp($a, $b) } @tags)[-1]
+			? ( sort { versioncmp( $a, $b ) } @tags )[-1]
 			: q{}
 		),
 	};

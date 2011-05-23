@@ -12,22 +12,22 @@ use WWW::Freshmeat;
 our $VERSION = '0.1';
 
 sub new {
-	my ($obj, %conf) = @_;
+	my ( $obj, %conf ) = @_;
 	my $ref = {};
 	$ref->{default} = \%conf;
 	$ref->{default}->{href} //= 'http://freshmeat.net/projects/%s/';
-	$ref->{fm} = WWW::Freshmeat->new(token => $conf{token});
-	return bless($ref, $obj);
+	$ref->{fm} = WWW::Freshmeat->new( token => $conf{token} );
+	return bless( $ref, $obj );
 }
 
 sub check {
-	my ($self, $res) = @_;
+	my ( $self, $res ) = @_;
 
-	my $fp = $self->{fm}->retrieve_project($self->{conf}->{name});
+	my $fp = $self->{fm}->retrieve_project( $self->{conf}->{name} );
 
-	if (defined $fp) {
+	if ( defined $fp ) {
 		return {
-			data => $fp->version(),
+			data        => $fp->version(),
 			description => $fp->description(),
 		};
 	}

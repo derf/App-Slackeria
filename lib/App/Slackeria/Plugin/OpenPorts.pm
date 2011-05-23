@@ -12,7 +12,7 @@ use XML::LibXML;
 our $VERSION = '0.1';
 
 sub new {
-	my ($obj, %conf) = @_;
+	my ( $obj, %conf ) = @_;
 
 	my $ref = {};
 
@@ -20,7 +20,7 @@ sub new {
 
 	$ref->{ua} = LWP::UserAgent->new( timeout => 10 );
 
-	return bless($ref, $obj);
+	return bless( $ref, $obj );
 }
 
 sub check {
@@ -28,7 +28,7 @@ sub check {
 
 	my $name  = $self->{conf}->{name};
 	my $reply = $self->{ua}
-		->get("http://openports.se/search.php?stype=folder&so=${name}");
+	  ->get("http://openports.se/search.php?stype=folder&so=${name}");
 
 	if ( not $reply->is_success() ) {
 		die( $reply->status_line() );
@@ -44,13 +44,11 @@ sub check {
 	for my $node ( @{ $tree->findnodes($xp_main) } ) {
 		if ( $node->textContent() eq '*** Exact match ***' ) {
 			my $category = $node->findnodes($xp_url)->[0]->textContent();
-			my $version = $node->findnodes($xp_ver)->[0]->textContent();
+			my $version  = $node->findnodes($xp_ver)->[0]->textContent();
 
 			$version =~ s{ ^ version \s }{}x;
 
-			return {
-				data => $version,
-			};
+			return { data => $version, };
 		}
 	}
 
