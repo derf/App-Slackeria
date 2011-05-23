@@ -14,20 +14,22 @@ use Getopt::Long;
 
 my $conf = App::Slackeria::Config->new();
 my $project;
-my $plugin = App::Slackeria::Plugin->new();
+my $plugin  = App::Slackeria::Plugin->new();
 my $verbose = 0;
-my (@plugins, @projects);
+my ( @plugins, @projects );
+
+our $VERSION = '0.1';
 
 GetOptions(
-	'P|projects=s@' => sub { push(@projects, split(qr{,}, $_[1])) },
-	'p|plugins=s@' => sub { push(@plugins, split(qr{,}, $_[1])) },
-	'v|verbose' => \$verbose,
+	'P|projects=s@' => sub { push( @projects, split( qr{,}, $_[1] ) ) },
+	'p|plugins=s@'  => sub { push( @plugins,  split( qr{,}, $_[1] ) ) },
+	'v|verbose'     => \$verbose,
 );
 
-if (@projects == 0) {
+if ( @projects == 0 ) {
 	@projects = $conf->projects();
 }
-if (@plugins == 0) {
+if ( @plugins == 0 ) {
 	@plugins = $conf->plugins();
 }
 
@@ -38,23 +40,23 @@ for my $p (@projects) {
 }
 
 for my $name (@plugins) {
-	$plugin->load($name, %{ $conf->get('config', $name) });
+	$plugin->load( $name, %{ $conf->get( 'config', $name ) } );
 }
 
-for my $p (keys %{$project}) {
+for my $p ( keys %{$project} ) {
 
-	for my $name ($plugin->list()) {
+	for my $name ( $plugin->list() ) {
 
 		if ($verbose) {
 			say "Running ${p}/${name}";
 		}
 
-		$project->{$p}->{$name} = $plugin->run($name, 
-				$conf->get($p, $name));
+		$project->{$p}->{$name}
+		  = $plugin->run( $name, $conf->get( $p, $name ) );
 	}
 }
 
-App::Slackeria::Out::XHTML->write($filename, $project);
+App::Slackeria::Out::XHTML->write( $filename, $project );
 
 __END__
 
@@ -93,7 +95,7 @@ Show the names of projects/plugins as they are run.
 =head1 CONFIGURATION
 
 The configuration is stored in F<~/.config/slackeria/> (or whatever prefix your
-B<XDG_CONFIG_HOME> is set to), it is in L<Config::Tiny> INI-style format.  The
+B<XDG_CONFIG_HOME> is set to), it is in Config::Tiny(3pm) INI-style format.  The
 list of projects, plugins and their default configuration are read from
 F<~/.config/slackeria/config>, for each project F<~/.config/slackeria/projectname>
 (if it exists) is also read.  Use it to override global plugin options.
@@ -152,8 +154,8 @@ Override project name (like App-Slackeria for cpan, but slackeria for freshmeat)
 
 =head1 DEPENDENCIES
 
-B<slackeria> itself only depends on L<Config::Tiny>, L<File::BaseDir> and
-L<HTML::Template>. For the plugins, see their documentation.
+B<slackeria> itself only depends on Config::Tiny, File::BaseDir and
+HTML::Template. For the plugins, see their documentation.
 
 =head1 BUGS AND LIMITATIONS
 
@@ -161,7 +163,7 @@ Some plugins are based on B<whohas>, which breaks easily.
 
 =head1 SEE ALSO
 
-L<Config::Tiny>, L<App::Slackeria>, L<App::Slackeria::Plugin>.
+Config::Tiny(3pm), App::Slackeria::Plugin(3pm).
 
 =head1 AUTHOR
 

@@ -9,29 +9,32 @@ use Config::Tiny;
 use Carp;
 use File::BaseDir qw(config_files);
 
+our $VERSION = '0.1';
+
 sub new {
 	my ($obj) = @_;
+
 	my $ref = {};
-	return bless($ref, $obj);
+
+	return bless( $ref, $obj );
 }
 
 sub get {
-	my ($self, $name, $section) = @_;
+	my ( $self, $name, $section ) = @_;
 	$self->load($name);
 
-	if ($name ne 'config') {
+	if ( $name ne 'config' ) {
 		$self->{file}->{$name}->{$section}->{name} //= $name;
 	}
 
 	return $self->{file}->{$name}->{$section} // {};
 }
 
-
 sub load {
-	my ($self, $name) = @_;
+	my ( $self, $name ) = @_;
 	my $file = config_files("slackeria/${name}");
 
-	if (defined $self->{file}->{$name}) {
+	if ( defined $self->{file}->{$name} ) {
 		return;
 	}
 
@@ -42,23 +45,29 @@ sub load {
 		$self->{file}->{$name} = {};
 	}
 
-	if ($name eq 'config') {
-		$self->{projects} = [ split(/ /,
-				$self->{file}->{$name}->{slackeria}->{projects}) ];
+	if ( $name eq 'config' ) {
+		$self->{projects}
+		  = [ split( / /, $self->{file}->{$name}->{slackeria}->{projects} ) ];
 		delete $self->{file}->{$name}->{slackeria};
 	}
+
+	return;
 }
 
 sub projects {
 	my ($self) = @_;
+
 	$self->load('config');
-	return @{$self->{projects}};
+
+	return @{ $self->{projects} };
 }
 
 sub plugins {
 	my ($self) = @_;
+
 	$self->load('config');
-	return keys %{$self->{file}->{config}};
+
+	return keys %{ $self->{file}->{config} };
 }
 
 1;
@@ -67,7 +76,7 @@ __END__
 
 =head1 NAME
 
-App::Slackeria::Plugin - Get config values for App::Slackeria and plugins
+App::Slackeria::Config - Get config values for App::Slackeria and plugins
 
 =head1 SYNOPSIS
 
@@ -85,9 +94,13 @@ App::Slackeria::Plugin - Get config values for App::Slackeria and plugins
         }
     }
 
+=head1 VERSION
+
+version 0.1
+
 =head1 DESCRIPTION
 
-B<App::Slackeria::Config> uses L<Config::Tiny> to load config files.
+B<App::Slackeria::Config> uses Config::Tiny(3pm) to load config files.
 
 =head1 METHODS
 
@@ -127,11 +140,11 @@ sections in the B<config> file.
 
 =head1 DEPENDENCIES
 
-L<Config::Tiny>, L<File::BaseDir>.
+Config::Tiny, File::BaseDir.
 
 =head1 SEE ALSO
 
-L<slackeria>
+slackeria(1)
 
 =head1 AUTHOR
 

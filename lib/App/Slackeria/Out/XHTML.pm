@@ -6,21 +6,23 @@ use 5.010;
 
 use HTML::Template;
 
+our $VERSION = '0.1';
+
 sub format_check {
 	my ($res) = @_;
-	my ($class, $href, $data);
+	my ( $class, $href, $data );
 
-	if (not $res->{skip} and $res->{ok} and $res->{data} eq q{}) {
+	if ( not $res->{skip} and $res->{ok} and $res->{data} eq q{} ) {
 		$data = 'ok';
 	}
 
-	if ($res->{ok} and $res->{href}) {
+	if ( $res->{ok} and $res->{href} ) {
 		$href = $res->{href};
 	}
 
-	if (not $res->{skip}) {
+	if ( not $res->{skip} ) {
 		$data //= $res->{data};
-		if ($res->{ok}) {
+		if ( $res->{ok} ) {
 			$class = 'ok';
 		}
 		else {
@@ -30,42 +32,48 @@ sub format_check {
 
 	return {
 		class => $class // q{},
-		data => $data,
-		href => $href,
+		data  => $data,
+		href  => $href,
 	};
 }
 
 sub write {
-	my ($self, $filename, $project) = @_;
+	my ( $self, $filename, $project ) = @_;
 	my @project_lines;
 	my @headers;
 
 	my $tmpl = HTML::Template->new(
 		filehandle => *DATA,
-		title => 'Software version matrix',
+		title      => 'Software version matrix',
 	);
 
-	for my $p (sort keys %{$project}) {
+	for my $p ( sort keys %{$project} ) {
 
-		my @plugins = sort keys %{$project->{$p}};
+		my @plugins = sort keys %{ $project->{$p} };
 
-		my @project_plugins = map {
-				format_check($project->{$p}->{$_}) } @plugins;
+		my @project_plugins
+		  = map { format_check( $project->{$p}->{$_} ) } @plugins;
 
-		if (@headers == 0) {
-			push(@headers, map { { plugin => $_ } } @plugins);
+		if ( @headers == 0 ) {
+			push( @headers, map { { plugin => $_ } } @plugins );
 		}
 
-		push(@project_lines, { project => $p, plugin => [@project_plugins] });
+		push(
+			@project_lines,
+			{
+				project => $p,
+				plugin  => [@project_plugins]
+			}
+		);
 
 	}
 
 	$tmpl->param(
 		header => [@headers],
-		line => [@project_lines],
+		line   => [@project_lines],
 	);
 
-	open (my $fh, '>', $filename);
+	open( my $fh, '>', $filename );
 	print $fh $tmpl->output();
 	close($fh);
 

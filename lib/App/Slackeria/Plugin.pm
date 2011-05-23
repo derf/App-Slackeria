@@ -5,19 +5,23 @@ use warnings;
 use autodie;
 use 5.010;
 
+our $VERSION = '0.1';
+
 sub new {
-	my ($obj, %conf) = @_;
+	my ( $obj, %conf ) = @_;
+
 	my $ref = {};
-	return bless($ref, $obj);
+
+	return bless( $ref, $obj );
 }
 
 sub load {
-	my ($self, $plugin, %conf) = @_;
+	my ( $self, $plugin, %conf ) = @_;
 	my $obj;
 	eval sprintf(
 		'use App::Slackeria::Plugin::%s;'
-		. '$obj = App::Slackeria::Plugin::%s->new(%%conf);',
-		(ucfirst($plugin)) x 2,
+		  . '$obj = App::Slackeria::Plugin::%s->new(%%conf);',
+		( ucfirst($plugin) ) x 2,
 	);
 	if ($@) {
 		print STDERR "Cannot load plugin ${plugin}:\n$@\n";
@@ -25,22 +29,26 @@ sub load {
 	else {
 		$self->{plugin}->{$plugin} = $obj;
 	}
+
+	return;
 }
 
 sub list {
 	my ($self) = @_;
-	return sort keys %{$self->{plugin}};
+
+	my @list = sort keys %{ $self->{plugin} };
+
+	return @list;
 }
 
 sub run {
-	my ($self, $name, $conf) = @_;
+	my ( $self, $name, $conf ) = @_;
 
-	if ($self->{plugin}->{$name}) {
+	if ( $self->{plugin}->{$name} ) {
 		return $self->{plugin}->{$name}->run($conf);
 	}
-	else {
-		return undef;
-	}
+
+	return;
 }
 
 1;
@@ -71,6 +79,10 @@ App::Slackeria::Plugin - Plugin wrapper for App::Slackeria
     #     data => 'v0.1',
     #     href => 'http://search.cpan.org/dist/App-Slackeria/'
     # }
+
+=head1 VERSION
+
+version 0.1
 
 =head1 DESCRIPTION
 
