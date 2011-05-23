@@ -111,7 +111,7 @@ F<~/.config/slackeria/config>, for each project F<~/.config/slackeria/projectnam
 B<slackeria> reads its projects from the whitespace-separated value of the
 "projects" key in the "slackeria" section.  Plugins need to be explicitly
 enabled by creating a section with their name.  In this section, you can
-configure the plugin (see plugin documentation).
+configure the plugin (see the plugin documentation).
 
 Two options are supported by all plugins:
 
@@ -162,11 +162,44 @@ Override project name (like App-Slackeria for cpan, but slackeria for freshmeat)
     [Debian]
     enable = 1
 
+=head1 PLUGINS
+
+This version of slackeria ships the following plugins:
+
+=over
+
+=item * App::Slackeria::Plugin::CPAN(3pm)
+
+=item * App::Slackeria::Plugin::Debian(3pm)
+
+=item * App::Slackeria::Plugin::FreeBSD(3pm)
+
+=item * App::Slackeria::Plugin::Freshmeat(3pm)
+
+=item * App::Slackeria::Plugin::Gentoo(3pm)
+
+=item * App::Slackeria::Plugin::GitHub(3pm)
+
+=item * App::Slackeria::Plugin::Git(3pm)
+
+=item * App::Slackeria::Plugin::Ikiwiki(3pm)
+
+=item * App::Slackeria::Plugin::OpenPorts(3pm)
+
+=item * App::Slackeria::Plugin::OpenSUSE(3pm)
+
+=item * App::Slackeria::Plugin::Pkgsrc(3pm)
+
+=item * App::Slackeria::Plugin::Ubuntu(3pm)
+
+=back
+
+For plugin options and dependencies, see their documentation.
+
 =head1 DEPENDENCIES
 
 B<slackeria> itself only depends on Config::Tiny, File::BaseDir and
-HTML::Template. For the plugins, see the App::Slackeria::Plugin::I<name>
-documentation (.g. App::Slackeria::Plugin::GitHub(3pm)).
+HTML::Template.
 
 =head1 BUGS AND LIMITATIONS
 
