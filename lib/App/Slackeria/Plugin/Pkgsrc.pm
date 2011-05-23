@@ -1,4 +1,4 @@
-package App::Slackeria::Plugin::NetBSD;
+package App::Slackeria::Plugin::Pkgsrc;
 
 use strict;
 use warnings;
@@ -20,13 +20,13 @@ __END__
 
 =head1 NAME
 
-App::Slackeria::Plugin::Netbsd - Check project version in NetBSD
+App::Slackeria::Plugin::Pkgsrc - Check project version on pkgsrc.se
 
 =head1 SYNOPSIS
 
 In F<slackeria/config>
 
-    [NetBSD]
+    [pkgsrc]
 
 =head1 VERSION
 
@@ -34,8 +34,8 @@ version 0.1
 
 =head1 DESCRIPTION
 
-This plugin queries a project and its version in the latest NetBSD version
-using whohas(1).
+This plugin queries a project and its version on pkgsrc.se, which is used by
+NetBSD and others.
 
 =head1 CONFIGURATION
 
