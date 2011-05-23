@@ -80,11 +80,11 @@ Repository owner.  Mandatory
 
 =head1 DEPENDENCIES
 
-Requires L<Net::GitHub> and L<Sort::Versions>.
+Requires Net::GitHub(3pm) and Sort::Versions(3pm).
 
 =head1 SEE ALSO
 
-L<slackeria>
+slackeria(1)
 
 =head1 AUTHOR
 

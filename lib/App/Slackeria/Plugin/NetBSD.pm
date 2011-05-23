@@ -29,7 +29,7 @@ In F<slackeria/config>
 =head1 DESCRIPTION
 
 This plugin queries a project and its version in the latest NetBSD version
-using L<whohas>.
+using whohas(1).
 
 =head1 CONFIGURATION
 
@@ -37,7 +37,7 @@ None.
 
 =head1 SEE ALSO
 
-L<slackeria>
+slackeria(1)
 
 =head1 AUTHOR
 

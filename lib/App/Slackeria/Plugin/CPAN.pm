@@ -57,11 +57,11 @@ None.
 
 =head1 DEPENDENCIES
 
-L<CPANPLUS>.
+CPANPLUS(3pm).
 
 =head1 SEE ALSO
 
-L<slackeria>
+slackeria(1)
 
 =head1 AUTHOR
 

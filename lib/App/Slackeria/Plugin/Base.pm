@@ -115,7 +115,7 @@ None.
 
 =head1 SEE ALSO
 
-L<slackeria>, L<App::Slackeria::Plugin>.
+slackeria(1), App::Slackeria::Plugin(3pm).
 
 =head1 AUTHOR
 

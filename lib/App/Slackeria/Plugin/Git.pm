@@ -73,12 +73,12 @@ Link to point to in output, again %s is replaced by B<name>
 
 =head1 DEPENDENCIES
 
-L<File::Slurp>, L<List::Util>, L<Sort::Versions>.  The B<git> executable must
+File::Slurp(3pm), List::Util(3pm), Sort::Versions(3pm).  The B<git> executable must
 be available.
 
 =head1 SEE ALSO
 
-L<slackeria>
+slackeria(1)
 
 =head1 AUTHOR
 

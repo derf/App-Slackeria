@@ -70,11 +70,11 @@ Set this to your freshmeat access token (mandatory)
 
 =head1 DEPENDENCIES
 
-Requires the L<WWW::Freshmeat> perl module.
+Requires the WWW::Freshmeat(3pm) perl module.
 
 =head1 SEE ALSO
 
-L<slackeria>
+slackeria(1)
 
 =head1 AUTHOR
 
