@@ -146,6 +146,8 @@ Override project name (like App-Slackeria for cpan, but slackeria for freshmeat)
     [Debian]
     enable = 0
 
+    [Freshmeat]
+
     [Gentoo]
     enable = 0
 
@@ -163,7 +165,8 @@ Override project name (like App-Slackeria for cpan, but slackeria for freshmeat)
 =head1 DEPENDENCIES
 
 B<slackeria> itself only depends on Config::Tiny, File::BaseDir and
-HTML::Template. For the plugins, see their documentation.
+HTML::Template. For the plugins, see the App::Slackeria::Plugin::I<name>
+documentation (.g. App::Slackeria::Plugin::GitHub(3pm)).
 
 =head1 BUGS AND LIMITATIONS
 
