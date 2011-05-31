@@ -9,7 +9,7 @@ use HTML::Template;
 our $VERSION = '0.1';
 
 sub format_check {
-	my ($res) = @_;
+	my ( $self, $res ) = @_;
 	my ( $class, $href, $data );
 
 	if ( not $res->{skip} and $res->{ok} and $res->{data} eq q{} ) {
@@ -52,7 +52,7 @@ sub write_out {
 		my @plugins = sort keys %{ $project->{$p} };
 
 		my @project_plugins
-		  = map { format_check( $project->{$p}->{$_} ) } @plugins;
+		  = map { $self->format_check( $project->{$p}->{$_} ) } @plugins;
 
 		if ( @headers == 0 ) {
 			push( @headers, map { { plugin => $_ } } @plugins );
@@ -81,6 +81,65 @@ sub write_out {
 }
 
 1;
+
+=pod
+
+=head1 NAME
+
+App::Slackeria::Out::XHTML - XHTML output for App::Slackeria
+
+=head1 SYNOPSIS
+
+	# $project looks like this:
+	# {
+	#     perl => {
+	#         Debian    => { ok => 1, data => '5.12.3-7' },
+	#         Freshmeat => { ok => 1, data => '5.14.0' },
+	#     },
+	#     irssi => {
+	#         Debian    => { ok => 1, data => '0.8.15-3+b1' },
+	#         Freshmeat => { ok => 1, data => '0.8.12' },
+	#     },
+	# }
+	App::Slackeria::Out::XHTML->write_out( '/tmp/out.html', $project );
+
+=head1 VERSION
+
+version 0.1
+
+=head1 DESCRIPTION
+
+App::Slackeria::Out::XHTML takes a hashref of projects, which themselves are
+hashrefs of plugin name => plugin output pairs, and stuffs it into a nicely
+formatted (X)HTML table.
+
+=head1 FUNCTIONS
+
+=over
+
+=item App::Slackeria::Out::XHTML->write_out(I<$filename>, I<\%data>)
+
+Creates HTML in I<filename> based on I<data>.
+
+=back
+
+=head1 DEPENDENCIES
+
+HTML::Template(3pm)
+
+=head1 SEE ALSO
+
+slackeria(1)
+
+=head1 AUTHOR
+
+Copyright (C) 2011 by Daniel Friesel <derf@finalrewind.org>
+
+=head1 LICENSE
+
+  0. You just DO WHAT THE FUCK YOU WANT TO.
+
+=cut
 
 __DATA__
 
