@@ -134,33 +134,28 @@ Override project name (like App-Slackeria for cpan, but slackeria for freshmeat)
     # slackeria/config
 
     [slackeria]
-    projects = App-Raps2 App-Slackeria caretaker comirror dthumb efa feh hashl icli
-
-    [Git]
-    git_dir = /home/derf/var/git_root/%s
-    href = http://derf.homelinux.org/git/%s/
-
-    [GitHub]
-    owner = derf
+    projects = dtach irssi perl zsh
 
     [Debian]
-    enable = 0
+
+    [FreeBSD]
 
     [Freshmeat]
+    token = secretsecret
 
-    [Gentoo]
+    [OpenPorts]
+
+    [OpenSUSE]
+
+    [Pkgsrc]
+
+    # slackeria/perl
+
+    [OpenPorts]
     enable = 0
 
-    [Ubuntu]
+    [Pkgsrc]
     enable = 0
-
-    # slackeria/App-Slackeria
-
-    [Freshmeat]
-    name = slackeria
-
-    [Debian]
-    enable = 1
 
 =head1 PLUGINS
 
