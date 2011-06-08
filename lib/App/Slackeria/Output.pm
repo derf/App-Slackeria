@@ -75,15 +75,15 @@ sub write_out {
 			@project_lines,
 			{
 				project => $p,
-				plugin  => [@project_plugins]
+				plugins => [@project_plugins]
 			}
 		);
 
 	}
 
 	$tmpl->param(
-		header => [@headers],
-		line   => [@project_lines],
+		headers  => [@headers],
+		projects => [@project_lines],
 	);
 
 	open( my $fh, '>', $filename );
@@ -134,9 +134,45 @@ formatted (X)HTML table.
 =over
 
 =item App::Slackeria::Output->write_out(B<filename> => I<filename>, B<data> =>
-I<data>)
+I<data>, [B<template> => I<template file>])
 
 Creates HTML in I<filename> based on I<data>.
+
+=back
+
+=head1 TEMPLATE VARIABLES
+
+In the outer layer, there are just two loop variables available, B<headers> and
+B<lines>. Use C<< <TMPL_LOOP headers> ... stuff ... </TMPL_LOOP> >> to access
+their content.
+
+=head2 HEADERS
+
+The B<headers> loop contains the table fields, i.e. the names of the
+executed plugins in the correct order, in the variable B<plugin>. It can be
+used like C<< <TMPL_VAR plugin> >>.
+
+=head2 LINES
+
+B<lines> loops over each project, which in turn loops over each plugin
+result. It provides the variable B<project> with the current project's name
+and the loop variable B<plugins>.
+
+B<plugins> provides the following variables:
+
+=over
+
+=item * B<class>
+
+CSS class for plugin result. Either "ok" or "fail".
+
+=item * B<href>
+
+URL to project page for this plugin, if available.
+
+=item * B<data>
+
+plugin's text output
 
 =back
 
@@ -199,14 +235,14 @@ __DATA__
 <table>
 <tr>
 <th>name</th>
-<TMPL_LOOP header>
+<TMPL_LOOP headers>
 	<th><TMPL_VAR plugin></th>
 </TMPL_LOOP>
 </tr>
-<TMPL_LOOP line>
+<TMPL_LOOP projects>
 	<tr>
 	<td><TMPL_VAR project></td>
-	<TMPL_LOOP plugin>
+	<TMPL_LOOP plugins>
 		<td class="<TMPL_VAR class>">
 		<TMPL_IF href><a href="<TMPL_VAR href>"></TMPL_IF>
 		<TMPL_VAR data>
