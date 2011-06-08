@@ -143,7 +143,7 @@ Creates HTML in I<filename> based on I<data>.
 =head1 TEMPLATE VARIABLES
 
 In the outer layer, there are just two loop variables available, B<headers> and
-B<lines>. Use C<< <TMPL_LOOP headers> ... stuff ... </TMPL_LOOP> >> to access
+B<projects>. Use C<< <TMPL_LOOP headers> ... stuff ... </TMPL_LOOP> >> to access
 their content.
 
 =head2 HEADERS
@@ -152,9 +152,9 @@ The B<headers> loop contains the table fields, i.e. the names of the
 executed plugins in the correct order, in the variable B<plugin>. It can be
 used like C<< <TMPL_VAR plugin> >>.
 
-=head2 LINES
+=head2 PROJECTS
 
-B<lines> loops over each project, which in turn loops over each plugin
+B<projects> loops over each project, which in turn loops over each plugin
 result. It provides the variable B<project> with the current project's name
 and the loop variable B<plugins>.
 

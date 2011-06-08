@@ -1,0 +1,5 @@
+slackeria 0.1 - Wed Jun 08 2011
+
+    * Initial release
+    * HTML output via HTML::Template
+    * Available plugins include: cpan, freshmeat, github and various distros
