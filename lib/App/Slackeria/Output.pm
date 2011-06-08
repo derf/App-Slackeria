@@ -1,4 +1,4 @@
-package App::Slackeria::Out::XHTML;
+package App::Slackeria::Output;
 use strict;
 use warnings;
 use autodie;
@@ -49,8 +49,8 @@ sub write_out {
 
 	if ( $opt{template} ) {
 		$tmpl = HTML::Template->new(
-			filename   => $opt{template},
-			title      => 'Software version matrix',
+			filename => $opt{template},
+			title    => 'Software version matrix',
 		);
 	}
 	else {
@@ -59,7 +59,6 @@ sub write_out {
 			title      => 'Software version matrix',
 		);
 	}
-
 
 	for my $p ( sort keys %{$project} ) {
 
@@ -100,7 +99,7 @@ sub write_out {
 
 =head1 NAME
 
-App::Slackeria::Out::XHTML - XHTML output for App::Slackeria
+App::Slackeria::Output - XHTML output for App::Slackeria
 
 =head1 SYNOPSIS
 
@@ -115,7 +114,10 @@ App::Slackeria::Out::XHTML - XHTML output for App::Slackeria
 	#         Freshmeat => { ok => 1, data => '0.8.12' },
 	#     },
 	# }
-	App::Slackeria::Out::XHTML->write_out( '/tmp/out.html', $project );
+	App::Slackeria::Output->write_out(
+		filename => '/tmp/out.html',
+		data => $project
+	);
 
 =head1 VERSION
 
@@ -131,7 +133,8 @@ formatted (X)HTML table.
 
 =over
 
-=item App::Slackeria::Out::XHTML->write_out(I<$filename>, I<\%data>)
+=item App::Slackeria::Output->write_out(B<filename> => I<filename>, B<data> =>
+I<data>)
 
 Creates HTML in I<filename> based on I<data>.
 

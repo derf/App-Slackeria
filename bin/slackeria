@@ -8,7 +8,7 @@ use 5.010;
 
 use App::Slackeria::Config;
 use App::Slackeria::Plugin;
-use App::Slackeria::Out::XHTML;
+use App::Slackeria::Output;
 
 use Getopt::Long qw(:config no_ignore_case);
 
@@ -59,7 +59,7 @@ for my $p ( keys %{$project} ) {
 	}
 }
 
-App::Slackeria::Out::XHTML->write_out(
+App::Slackeria::Output->write_out(
 	data     => $project,
 	filename => $filename,
 	template => $template,
@@ -90,6 +90,10 @@ what's missing  or not up-to-date.
 =head1 OPTIONS
 
 =over
+
+=item B<-t>, B<--template> I<file>
+
+Read output template from I<file>. See App::Slackeria::Out::XHTML(3pm).
 
 =item B<-v>, B<--verbose>
 
