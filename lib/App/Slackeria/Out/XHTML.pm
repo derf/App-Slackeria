@@ -38,14 +38,28 @@ sub format_check {
 }
 
 sub write_out {
-	my ( $self, $filename, $project ) = @_;
+	my ( $self, %opt ) = @_;
 	my @project_lines;
 	my @headers;
 
-	my $tmpl = HTML::Template->new(
-		filehandle => *DATA,
-		title      => 'Software version matrix',
-	);
+	my $filename = $opt{filename};
+	my $project  = $opt{data};
+
+	my $tmpl;
+
+	if ( $opt{template} ) {
+		$tmpl = HTML::Template->new(
+			filename   => $opt{template},
+			title      => 'Software version matrix',
+		);
+	}
+	else {
+		$tmpl = HTML::Template->new(
+			filehandle => *DATA,
+			title      => 'Software version matrix',
+		);
+	}
+
 
 	for my $p ( sort keys %{$project} ) {
 

@@ -14,7 +14,8 @@ use Getopt::Long qw(:config no_ignore_case);
 
 my $conf = App::Slackeria::Config->new();
 my $project;
-my $plugin  = App::Slackeria::Plugin->new();
+my $plugin = App::Slackeria::Plugin->new();
+my $template;
 my $verbose = 0;
 my ( @plugins, @projects );
 
@@ -23,6 +24,7 @@ our $VERSION = '0.1';
 GetOptions(
 	'P|projects=s@' => sub { push( @projects, split( qr{,}, $_[1] ) ) },
 	'p|plugins=s@'  => sub { push( @plugins,  split( qr{,}, $_[1] ) ) },
+	't|template=s'  => \$template,
 	'v|verbose'     => \$verbose,
 	'V|version' => sub { say "slackeria version ${VERSION}"; exit 0 },
 );
@@ -57,7 +59,11 @@ for my $p ( keys %{$project} ) {
 	}
 }
 
-App::Slackeria::Out::XHTML->write_out( $filename, $project );
+App::Slackeria::Out::XHTML->write_out(
+	data     => $project,
+	filename => $filename,
+	template => $template,
+);
 
 __END__
 
