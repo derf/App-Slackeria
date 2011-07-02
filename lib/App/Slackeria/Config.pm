@@ -8,7 +8,7 @@ use Config::Tiny;
 use Carp;
 use File::BaseDir qw(config_files);
 
-our $VERSION = '0.1';
+our $VERSION = '0.02';
 
 sub new {
 	my ($obj) = @_;
@@ -95,7 +95,7 @@ App::Slackeria::Config - Get config values for App::Slackeria and plugins
 
 =head1 VERSION
 
-version 0.1
+version 0.02
 
 =head1 DESCRIPTION
 

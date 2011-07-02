@@ -11,7 +11,7 @@ use File::Slurp;
 use List::Util qw(first);
 use Sort::Versions;
 
-our $VERSION = '0.1';
+our $VERSION = '0.02';
 
 sub check {
 	my ($self) = @_;
@@ -58,7 +58,7 @@ In F<slackeria/config>
 
 =head1 VERSION
 
-version 0.1
+version 0.02
 
 =head1 DESCRIPTION
 

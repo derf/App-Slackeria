@@ -6,7 +6,7 @@ use 5.010;
 
 use parent 'App::Slackeria::Plugin::Base';
 
-our $VERSION = '0.1';
+our $VERSION = '0.02';
 
 sub run_whohas {
 	my ( $self, $distro, $name ) = @_;
@@ -45,7 +45,7 @@ App::Slackeria::Plugin::Whohas - Parent for whohas-based distro check plugins
 
 =head1 VERSION
 
-version 0.1
+version 0.02
 
 =head1 DESCRIPTION
 
