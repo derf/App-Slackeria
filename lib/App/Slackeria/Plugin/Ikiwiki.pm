@@ -7,7 +7,7 @@ use 5.010;
 
 use parent 'App::Slackeria::Plugin::Base';
 
-our $VERSION = '0.02';
+our $VERSION = '0.11';
 
 sub check {
 	my ($self) = @_;
@@ -56,7 +56,7 @@ In F<slackeria/config>
 
 =head1 VERSION
 
-version 0.02
+version 0.11
 
 =head1 DESCRIPTION
 

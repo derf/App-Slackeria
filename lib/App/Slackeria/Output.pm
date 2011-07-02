@@ -6,7 +6,7 @@ use 5.010;
 
 use HTML::Template;
 
-our $VERSION = '0.02';
+our $VERSION = '0.11';
 
 sub format_check {
 	my ( $self, $res ) = @_;
@@ -121,7 +121,7 @@ App::Slackeria::Output - XHTML output for App::Slackeria
 
 =head1 VERSION
 
-version 0.02
+version 0.11
 
 =head1 DESCRIPTION
 

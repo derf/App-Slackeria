@@ -1,6 +1,7 @@
-slackeria 0.02 - Sat Jul 02 2011
+slackeria 0.11 - Sat Jul 02 2011
 
     * Fix dependency list and make recommends dependencies for now
+    * Switch to perl version schema (x.yy[_zz])
 
 slackeria 0.1 - Wed Jun 08 2011
 

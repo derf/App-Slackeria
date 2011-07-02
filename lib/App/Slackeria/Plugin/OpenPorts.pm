@@ -9,7 +9,7 @@ use parent 'App::Slackeria::Plugin::Base';
 use LWP::UserAgent;
 use XML::LibXML;
 
-our $VERSION = '0.02';
+our $VERSION = '0.11';
 
 sub new {
 	my ( $obj, %conf ) = @_;
@@ -71,7 +71,7 @@ In F<slackeria/config>
 
 =head1 VERSION
 
-version 0.02
+version 0.11
 
 =head1 DESCRIPTION
 
