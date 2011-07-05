@@ -3,6 +3,8 @@ git HEAD
     [App::Slackeria]
     * Rename App::Slackeria::Plugin to App::Slackeria::PluginLoader
     * Rename App::Slackeria::Plugin::Base to App::Slackeria::Plugin
+    * Move template to separate file, adds dependency File::ShareDir
+    * Because of that, we now need Module::Build >= 0.36
 
 slackeria 0.11 - Sat Jul 02 2011
 

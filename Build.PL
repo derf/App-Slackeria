@@ -6,6 +6,7 @@ use Module::Build;
 
 my $build = Module::Build->new(
 	build_requires => {
+		'Module::Build' => '0.36',
 		'Test::Compile' => 0,
 		'Test::More' => 0,
 		'Test::Pod' => 0,
@@ -20,6 +21,7 @@ my $build = Module::Build->new(
 		'Config::Tiny' => 0,
 		'CPANPLUS' => 0,
 		'File::BaseDir' => 0,
+		'File::ShareDir' => 0,
 		'File::Slurp' => 0,
 		'HTML::Template' => 0,
 		'List::Util' => 0,
@@ -30,6 +32,7 @@ my $build = Module::Build->new(
 		'XML::LibXML' => 0,
 	},
 	script_files => 'bin/',
+	share_dir => 'share',
 	sign => 1,
 );
 $build->create_build_script();

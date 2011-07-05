@@ -4,6 +4,7 @@ use warnings;
 use autodie;
 use 5.010;
 
+use File::ShareDir qw(dist_file);
 use HTML::Template;
 
 our $VERSION = '0.11';
@@ -44,21 +45,13 @@ sub write_out {
 
 	my $filename = $opt{filename};
 	my $project  = $opt{data};
+	my $template = $opt{template} // dist_file('App-Slackeria',
+	'template.xhtml');
 
-	my $tmpl;
-
-	if ( $opt{template} ) {
-		$tmpl = HTML::Template->new(
-			filename => $opt{template},
-			title    => 'Software version matrix',
-		);
-	}
-	else {
-		$tmpl = HTML::Template->new(
-			filehandle => *DATA,
-			title      => 'Software version matrix',
-		);
-	}
+	my $tmpl = HTML::Template->new(
+		filename => $template,
+		title    => 'Software version matrix',
+	);
 
 	for my $p ( sort keys %{$project} ) {
 
@@ -95,7 +88,7 @@ sub write_out {
 
 1;
 
-=pod
+__END__
 
 =head1 NAME
 
@@ -191,67 +184,3 @@ Copyright (C) 2011 by Daniel Friesel <derf@finalrewind.org>
 =head1 LICENSE
 
   0. You just DO WHAT THE FUCK YOU WANT TO.
-
-=cut
-
-__DATA__
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-	<title><TMPL_VAR title></title>
-	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-	<style type="text/css">
-		html {
-			font-family: Sans-Serif;
-			text-align: center;
-		}
-
-		a {
-			text-decoration: none;
-			color: #000099;
-		}
-
-		table, th, td {
-			border: solid black 1px;
-		}
-
-		table {
-			border-collapse: collapse;
-		}
-
-		td.ok {
-			background-color: #ccffcc;
-		}
-
-		td.fail {
-			background-color: #ffcccc;
-		}
-	</style>
-</head>
-<body>
-<div>
-<table>
-<tr>
-<th>name</th>
-<TMPL_LOOP headers>
-	<th><TMPL_VAR plugin></th>
-</TMPL_LOOP>
-</tr>
-<TMPL_LOOP projects>
-	<tr>
-	<td><TMPL_VAR project></td>
-	<TMPL_LOOP plugins>
-		<td class="<TMPL_VAR class>">
-		<TMPL_IF href><a href="<TMPL_VAR href>"></TMPL_IF>
-		<TMPL_VAR data>
-		<TMPL_IF href></a></TMPL_IF>
-		</td>
-	</TMPL_LOOP>
-	</tr>
-</TMPL_LOOP>
-</table>
-</div>
-</body>
-</html>
