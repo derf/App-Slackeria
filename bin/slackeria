@@ -7,14 +7,14 @@ use warnings;
 use 5.010;
 
 use App::Slackeria::Config;
-use App::Slackeria::Plugin;
+use App::Slackeria::PluginLoader;
 use App::Slackeria::Output;
 
 use Getopt::Long qw(:config no_ignore_case);
 
 my $conf = App::Slackeria::Config->new();
 my $project;
-my $plugin = App::Slackeria::Plugin->new();
+my $plugin = App::Slackeria::PluginLoader->new();
 my $template;
 my $verbose = 0;
 my ( @plugins, @projects );
@@ -215,7 +215,7 @@ stable, but other things may still change.
 
 =head1 SEE ALSO
 
-Config::Tiny(3pm), App::Slackeria::Plugin(3pm).
+Config::Tiny(3pm), App::Slackeria::PluginLoader(3pm).
 
 =head1 CREDITS
 

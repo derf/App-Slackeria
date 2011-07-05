@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use 5.010;
 
-use parent 'App::Slackeria::Plugin::Base';
+use parent 'App::Slackeria::Plugin';
 
 use Net::GitHub;
 use Sort::Versions;

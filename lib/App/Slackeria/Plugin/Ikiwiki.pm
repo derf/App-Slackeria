@@ -5,7 +5,7 @@ use warnings;
 use autodie;
 use 5.010;
 
-use parent 'App::Slackeria::Plugin::Base';
+use parent 'App::Slackeria::Plugin';
 
 our $VERSION = '0.11';
 

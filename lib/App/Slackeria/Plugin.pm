@@ -8,46 +8,45 @@ our $VERSION = '0.11';
 
 sub new {
 	my ( $obj, %conf ) = @_;
-
 	my $ref = {};
-
+	$ref->{default} = \%conf;
 	return bless( $ref, $obj );
 }
 
-sub load {
-	my ( $self, $plugin, %conf ) = @_;
-	my $obj;
-	eval sprintf(
-		'use App::Slackeria::Plugin::%s;'
-		  . '$obj = App::Slackeria::Plugin::%s->new(%%conf);',
-		( ucfirst($plugin) ) x 2,
-	);
-	if ($@) {
-		print STDERR "Cannot load plugin ${plugin}:\n$@\n";
-	}
-	else {
-		$self->{plugin}->{$plugin} = $obj;
-	}
-
-	return;
-}
-
-sub list {
-	my ($self) = @_;
-
-	my @list = sort keys %{ $self->{plugin} };
-
-	return @list;
-}
-
 sub run {
-	my ( $self, $name, $conf ) = @_;
+	my ( $self, $check_conf ) = @_;
+	my %conf = %{ $self->{default} };
+	my $ret;
 
-	if ( $self->{plugin}->{$name} ) {
-		return $self->{plugin}->{$name}->run($conf);
+	for my $key ( keys %{$check_conf} ) {
+		$conf{$key} = $check_conf->{$key};
 	}
 
-	return;
+	if ( ( defined $conf{enable} and $conf{enable} == 0 )
+		or $conf{disable} )
+	{
+		return {
+			data => q{},
+			skip => 1,
+		};
+	}
+
+	$self->{conf} = \%conf;
+
+	$ret = eval { $self->check() };
+
+	if ( $@ or not defined $ret ) {
+		return {
+			ok   => 0,
+			data => $@,
+		};
+	}
+
+	if ( defined $conf{href} and not defined $ret->{href} ) {
+		$ret->{href} = sprintf( $conf{href}, $conf{name} );
+	}
+	$ret->{ok} = 1;
+	return $ret;
 }
 
 1;
@@ -56,28 +55,24 @@ __END__
 
 =head1 NAME
 
-App::Slackeria::Plugin - Plugin wrapper for App::Slackeria
+App::Slackeria::Plugin - parent class for all slackeria plugins
 
 =head1 SYNOPSIS
 
-    use App::Slackeria::Plugin;
+    use parent 'App::Slackeria::Plugin';
 
-    my $plugin = App::Slackeria::Plugin->new();
-    my $result;
+    sub check {
+        my ($self) = @_;
 
-    $plugin->load('CPAN', %cpan_default_conf);
-
-    $result->{slackeria}->{CPAN} = $plugin->run('CPAN', {
-            name => 'App-Slackeria',
-            # further slackeria-specific configuration (if needed)
-    });
-
-    # $result->{slackeria}->{CPAN} is like:
-    # {
-    #     ok => 1,
-    #     data => 'v0.1',
-    #     href => 'http://search.cpan.org/dist/App-Slackeria/'
-    # }
+        if (everything_ok()) {
+            return {
+                data => show_things(),
+            };
+        }
+        else {
+            die("not found\n");
+        }
+    }
 
 =head1 VERSION
 
@@ -85,35 +80,31 @@ version 0.11
 
 =head1 DESCRIPTION
 
-B<App::Slackeria::Plugin> loads and executes a number of B<slackeria> plugins.  It
-also makes sure that any errors in plugins are catched and do not affect the
-code using B<App::Slackeria::Plugin>.
+B<App::Slackeria::Plugin> is not a plugin itself; it is meant to serve as
+a parent class for all other plugins.
 
 =head1 METHODS
 
 =over
 
-=item $plugin = App::Slackeria::Plugin->new()
+=item $plugin = App::Slackeria::Plugin::Something->new(I<%conf>);
 
-Returns a new App::Slackeria::Plugin object.  Does not take any arguments.
+Returns a new object. A reference to I<%conf> is stored in $self->{default}.
 
-=item $plugin->load(I<plugin>, I<%conf>)
+=item $plugin->run(I<$conf>)
 
-Create an internal App::Slackeria::Plugin::I<plugin> object by using it and
-calling App::Slackeria::Plugin::I<plugin>->new(I<%conf>).  If I<plugin> does not
-exist or fails during setup, B<load> prints an error message to STDERR.
+Merges $self->{default} and I<$conf> and saves the result in $self->{conf}.
+I<$conf> takes precedence; $self->{default} and I<$conf> are not touched in
+the process.
 
-=item $plugin->list()
+If $conf{enable} is set to 0, immediately returns { skip => 1 }.
 
-Returns an array containing the names of all loaded plugins.
+It then calls the check function of App::Slackeria::Plugin::Something. If it
+fails (dies or returns undef), { ok => 0, data => $@} is returned.
 
-=item $plugin->run(I<plugin>, I<$conf_ref>)
-
-Calls the B<run> method of I<plugin>:
-$plugin_object->run(I<$conf_ref>).
-
-If I<plugin> exists and is loaded, it returns the output of the run method,
-otherwise undef.
+The hashref returned by the B<check> call is returned, with the additional key
+B<ok> set to 1. Also, if $conf{href} is set, but B<check> did not set a
+B<href> key, B<href> is set to $conf{href} with %s replaced by $conf{name}.
 
 =back
 
@@ -123,7 +114,7 @@ None.
 
 =head1 SEE ALSO
 
-slackeria(1), App::Slackeria::Plugin::Base(3pm).
+slackeria(1), App::Slackeria::PluginLoader(3pm).
 
 =head1 AUTHOR
 
