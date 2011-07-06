@@ -96,21 +96,21 @@ App::Slackeria::Output - XHTML output for App::Slackeria
 
 =head1 SYNOPSIS
 
-	# $project looks like this:
-	# {
-	#     perl => {
-	#         Debian    => { ok => 1, data => '5.12.3-7' },
-	#         Freshmeat => { ok => 1, data => '5.14.0' },
-	#     },
-	#     irssi => {
-	#         Debian    => { ok => 1, data => '0.8.15-3+b1' },
-	#         Freshmeat => { ok => 1, data => '0.8.12' },
-	#     },
-	# }
-	App::Slackeria::Output->write_out(
-		filename => '/tmp/out.html',
-		data => $project
-	);
+    # $project looks like this:
+    # {
+    #     perl => {
+    #         Debian    => { ok => 1, data => '5.12.3-7' },
+    #         Freshmeat => { ok => 1, data => '5.14.0' },
+    #     },
+    #     irssi => {
+    #         Debian    => { ok => 1, data => '0.8.15-3+b1' },
+    #         Freshmeat => { ok => 1, data => '0.8.12' },
+    #     },
+    # }
+    App::Slackeria::Output->write_out(
+        filename => '/tmp/out.html',
+        data => $project
+    );
 
 =head1 VERSION
 

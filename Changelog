@@ -6,6 +6,13 @@ git HEAD
     * Move template to separate file, adds dependency File::ShareDir
     * Because of that, we now need Module::Build >= 0.36
 
+    [App::Slackeria::Plugin::Debian]
+    * Switch from whohas to custom parser using LWP::Simple and XML::LibXML
+    * Now checks version in Debian Sid by default
+    * Add 'distribution' configuration parameter to select which Debian
+      distribution (wheezy, sid, etc.) to check
+    * Add 'href' configuration parameter
+
 slackeria 0.11 - Sat Jul 02 2011
 
     * Fix dependency list and make recommends dependencies for now
