@@ -45,12 +45,14 @@ sub write_out {
 
 	my $filename = $opt{filename};
 	my $project  = $opt{data};
-	my $template = $opt{template} // dist_file('App-Slackeria',
-	'template.xhtml');
+	my $template = $opt{template}
+	  // dist_file( 'App-Slackeria', 'template.xhtml' );
 
-	my $tmpl = HTML::Template->new(
-		filename => $template,
-		title    => 'Software version matrix',
+	my $tmpl = HTML::Template->new( filename => $template );
+
+	$tmpl->param(
+		title   => 'Software version matrix',
+		version => $VERSION,
 	);
 
 	for my $p ( sort keys %{$project} ) {
