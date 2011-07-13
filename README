@@ -7,7 +7,7 @@ slackeria - Project status overview
 Dependencies
 ------------
 
- * perl version 5.10 or newer
+ * perl version 5.10.1 or newer
  * Config::Tiny
  * File::BaseDir
  * File::ShareDir
