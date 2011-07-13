@@ -22,12 +22,25 @@ my ( @plugins, @projects );
 our $VERSION = '0.11';
 
 GetOptions(
+	'h|help'        => sub { show_help(0) },
 	'P|projects=s@' => sub { push( @projects, split( qr{,}, $_[1] ) ) },
-	'p|plugins=s@'  => sub { push( @plugins,  split( qr{,}, $_[1] ) ) },
-	't|template=s'  => \$template,
-	'v|verbose'     => \$verbose,
-	'V|version' => sub { say "slackeria version ${VERSION}"; exit 0 },
-);
+	'p|plugins=s@'  => sub { push( @plugins, split( qr{,}, $_[1] ) ) },
+	't|template=s' => \$template,
+	'v|verbose'    => \$verbose,
+	'V|version'    => sub { say "slackeria version ${VERSION}"; exit 0 },
+
+) or show_help(1);
+
+my $filename = shift or show_help(1);
+
+sub show_help {
+	my ($exit_status) = @_;
+
+	say 'Usage: slackeria [-v] [-P projects] [-p plugins] [-t template] '
+	  . '<outfile>';
+
+	exit $exit_status;
+}
 
 if ( @projects == 0 ) {
 	@projects = $conf->projects();
@@ -35,8 +48,6 @@ if ( @projects == 0 ) {
 if ( @plugins == 0 ) {
 	@plugins = $conf->plugins();
 }
-
-my $filename = shift;
 
 for my $p (@projects) {
 	$project->{$p} = {};

@@ -2,6 +2,9 @@ git HEAD
 
     * Note that we actually need perl >= 5.10.1 (for the parent pragma)
 
+    [slackeria]
+    * Argument validation, add -h/--help option
+
     [App::Slackeria]
     * Rename App::Slackeria::Plugin to App::Slackeria::PluginLoader
     * Rename App::Slackeria::Plugin::Base to App::Slackeria::Plugin
