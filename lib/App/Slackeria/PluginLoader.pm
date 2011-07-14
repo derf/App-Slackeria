@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use 5.010;
 
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 sub new {
 	my ( $obj, %conf ) = @_;
@@ -81,7 +81,7 @@ App::Slackeria::PluginLoader - Plugin wrapper for App::Slackeria
 
 =head1 VERSION
 
-version 0.11
+version 0.12
 
 =head1 DESCRIPTION
 

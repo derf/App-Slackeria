@@ -8,7 +8,7 @@ use parent 'App::Slackeria::Plugin';
 
 use WWW::Freshmeat;
 
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 sub new {
 	my ( $obj, %conf ) = @_;
@@ -52,7 +52,7 @@ In F<slackeria/config>
 
 =head1 VERSION
 
-version 0.11
+version 0.12
 
 =head1 DESCRIPTION
 

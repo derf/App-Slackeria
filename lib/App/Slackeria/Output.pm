@@ -7,7 +7,7 @@ use 5.010;
 use File::ShareDir qw(dist_file);
 use HTML::Template;
 
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 sub format_check {
 	my ( $self, $res ) = @_;
@@ -116,7 +116,7 @@ App::Slackeria::Output - XHTML output for App::Slackeria
 
 =head1 VERSION
 
-version 0.11
+version 0.12
 
 =head1 DESCRIPTION
 
