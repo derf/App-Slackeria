@@ -1,3 +1,7 @@
+git HEAD
+
+    * Rename OpenPorts plugin to OpenBSDPorts (more accurate)
+
 slackeria 0.12 - Thu Jul 14 2011
 
     * Note that we actually need perl >= 5.10.1 (for the parent pragma)

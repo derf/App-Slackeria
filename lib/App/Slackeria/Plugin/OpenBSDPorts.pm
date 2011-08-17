@@ -1,4 +1,4 @@
-package App::Slackeria::Plugin::OpenPorts;
+package App::Slackeria::Plugin::OpenBSDPorts;
 
 use strict;
 use warnings;
@@ -61,13 +61,13 @@ __END__
 
 =head1 NAME
 
-App::Slackeria::Plugin::OpenPorts - Check project version in OpenBSD Ports
+App::Slackeria::Plugin::OpenBSDPorts - Check project version in OpenBSD Ports
 
 =head1 SYNOPSIS
 
 In F<slackeria/config>
 
-    [OpenPorts]
+    [OpenBSDPorts]
 
 =head1 VERSION
 
