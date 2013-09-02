@@ -34,5 +34,10 @@ my $build = Module::Build->new(
 	script_files => 'bin/',
 	share_dir => 'share',
 	sign => 1,
+	meta_merge => {
+		resources => {
+			repository => 'https://github.com/derf/App-Slackeria',
+		},
+	},
 );
 $build->create_build_script();
